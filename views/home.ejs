@@ -1,0 +1,13 @@
+<%- include('./includes/head.ejs') %>
+<form class="user" action="/user/friends" method="POST">
+    <div class="form-group">
+        <label for="UserName">Enter Username</label>
+        <input type="text" class="form-control" name="username" id="exampleInputEmail1"  placeholder="Enter Username">
+    </div>
+    <div class="form-group">
+        <label for="friendsInput">Number of friends</label>
+        <input type="number" class="form-control" name="friends" id="friends" placeholder="friends">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+<%- include('./includes/end.ejs') %>

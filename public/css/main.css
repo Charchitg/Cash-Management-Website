@@ -1,0 +1,11 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.user{
+   margin: 2rem;
+   padding: 0rem;
+   font-family: 'Courier New', Courier, monospace;
+}
