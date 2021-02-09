@@ -4,26 +4,14 @@ exports.getHome = (req , res , next) => {
       });
 }
 
-exports.friendsInput = (req , res , next) => {
-  console.log(req.body);
-      const user = req.body.username;
-      const friends = req.body.friends;
-      // console.log(user);
-      // console.log(friends);
-      res.render('./base' , {
-        PageTitle : "" ,
-        Username : user ,
-        friends : friends
-      });
-}
-
-exports.getfriendsOutput = (req , res , next) => {
-  res.render('./display' , {
-    PageTitle : "Home"
+exports.getLoginPage = (req,res,next) => {
+  res.render('./login', {
+    PageTitle : "Login"
   });
 }
 
-exports.friendsOutput = (req,res,next) =>{
-  console.log(req.body);
-  res.render('./display');
+exports.getRegisterPage = (req,res,next) =>{
+  res.render('./register', {
+    PageTitle : "Register"
+  });
 }

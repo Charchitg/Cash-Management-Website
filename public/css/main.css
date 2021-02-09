@@ -9,3 +9,16 @@
    padding: 0rem;
    font-family: 'Courier New', Courier, monospace;
 }
+ul{
+    display: inline;
+}
+.nav{
+    display: flex;
+    /* flex-direction: row-reverse; */
+}
+
+.right{
+   flex-direction: row-reverse;
+   position: absolute;
+   right: 0;
+}

@@ -3,12 +3,10 @@ const router = express.Router();
 
 const userController = require('../controllers/user');
 
-router.get('/' , userController.getHome);
+router.get('/home' , userController.getHome);
 
-//router.post('/' , userController.friendsInput);
+router.get('/login' , userController.getLoginPage);
 
-router.post('/friends' , userController.friendsInput);
-
-router.get('/friends' , userController.getfriendsOutput);
+router.get('/register' , userController.getRegisterPage);
 
 module.exports = router;
