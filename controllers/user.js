@@ -4,6 +4,10 @@ exports.getHome = (req , res , next) => {
       });
 }
 
+exports.postHome = (req,res,next) => {
+  
+}
+
 exports.getLoginPage = (req,res,next) => {
   res.render('./login', {
     PageTitle : "Login"
