@@ -4,7 +4,7 @@
   "description": "this is my smp-2021 project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon index.js"
   },
   "author": "",
   "license": "ISC",
@@ -12,6 +12,8 @@
     "body-parser": "^1.19.0",
     "ejs": "^3.1.5",
     "express": "^4.17.1",
-    "nodemon": "^2.0.7"
+    "mongoose": "^5.11.17",
+    "nodemon": "^2.0.7",
+    "passport": "^0.4.1"
   }
 }

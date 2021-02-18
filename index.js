@@ -8,7 +8,7 @@ app.set('views','views');
 app.set('view engine' , 'ejs');
 
 app.use(BodyParser.urlencoded({extended : false}));
-app.use(BodyParser.json());
+
 app.use(express.static(path.join(__dirname , 'public')));
 
 const Userroutes = require('./routes/user');
