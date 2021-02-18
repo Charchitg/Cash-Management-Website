@@ -35,7 +35,7 @@ exports.getFriendsPage = (req,res,next) =>{
 }
 
 exports.postFriendsPage = (req,res,next) =>{
-  // console.log(req.body);
+   console.log(req.body);
   // //res.send('post friend');
   res.redirect('/user/home');
 }
