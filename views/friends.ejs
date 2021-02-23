@@ -5,9 +5,9 @@
 <form action="/user/friends" method="POST">
 <% for( let index = 0; index < parseInt(friends); index++ ) { %>
         <label for="friend_name">friend name</label>
-        <input type="text" name="<%= index %> ">
+        <input type="text" name="<%% friend_arr  %>">
         <label for="amount">amount</label>
-        <input type="number" name="<%= index+10 %> ">
+        <input type="number" name="<%% amount_arr %>">
     
 <% } %>
 <button type="submit" class="btn btn-primary">Submit</button>
