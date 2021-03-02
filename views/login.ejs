@@ -1,15 +1,33 @@
-<%- include('./includes/head.ejs') %>
-
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= PageTitle %></title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/css/main.css" />
+  </head>
+  <body>
+    <header>
+      <div class="header">
+      <a href="#" class="brand">Cash Management Website</a>
+  </div>
+ <div class="form">
 <form action="" method="POST">
     <div class="form-group">
-        <label for="UserName">Enter Your registered Email</label>
-        <input type="email" class="form-control" name="username" id="exampleInputEmail1">
+        <label for="email">Enter Your registered Email</label>
+        <input type="email" class="form-control" name="email" >
     </div>
     <div class="form-group">
         <label for="Password">Password</label>
-        <input type="number" class="form-control" name="Password" id="Password" >
+        <input type="number" class="form-control" name="Password" >
     </div>
     <button type="submit" class="btn btn-primary">Login</button>
 </form>
-
+</div>
 <%- include('./includes/end.ejs') %>

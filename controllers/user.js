@@ -1,7 +1,6 @@
-let friend = 0;
-let username = "";
-
 const User = require('../models/User');
+const Transaction = require('../models/Transaction');
+const passport = require('passport');
 
 exports.getHome = (req , res , next) => {
     res.render('./home' , {
@@ -12,24 +11,40 @@ exports.getHome = (req , res , next) => {
 exports.postHome = (req,res,next) => {
   friend = req.body.friends;
   username = req.body.username;
-  //res.send('post home');
   res.redirect('/user/friends');
 }
 
-exports.getFriendsPage = (req,res,next) =>{
-  let friend_name = new Array(friend);
-let amount = new Array(friend);
-  res.render('./friends' , {
-    PageTitle : "Friends" , 
+exports.getTransferPage = (req,res,next) =>{
+  res.render('./transfer' , {
+    PageTitle : "Transfer" , 
     Username : username , 
-    friends : friend , 
-    friend_arr : friend_name , 
-    amount_arr : amount
+    friends : friend 
   });
 }
 
-exports.postFriendsPage = (req,res,next) =>{
-  console.log(req);
+exports.postTransferPage = (req,res,next) =>{
+  const friendArr = req.body.friend;
+  const amountArr = req.body.amount;
+  
+  // for (let i = 0; i < friendArr.length; i++) {
+  //   const friendname = friendArr[i];
+  //   const amount = amountArr[i];
+  //   const transaction = new Transaction(req.user.email , friendname , amount);
+  //   transaction.save()
+  //   .then(() => {
+  //     req.user.lendMoney += amount ; 
+  //     User.findOne({email : friendname } , (err , user ) =>{
+  //       if(err){ console.log(err);}
+  //       else{user.borrowMoney += amount ; }
+  //     })
+  //   }
+  //   )
+  //   .catch(err =>{
+  //     console.log(err);
+  //   })
+  // }
+
+
 }
 
 
@@ -39,11 +54,9 @@ exports.getLoginPage = (req,res,next) => {
   });
 }
 
-exports.PostLoginPage = (req,res,next) =>{
-  const Email = req.body.username;
-  const password = req.body.Password;
-  
-}
+// exports.PostLoginPage = 
+
+// }
 
 
 exports.getRegisterPage = (req,res,next) =>{

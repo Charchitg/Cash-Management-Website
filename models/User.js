@@ -12,7 +12,14 @@ const UserSchema = new mongoose.Schema({
     password : {
         type : String , 
         required : true 
+    } , 
+    borrowMoney : {
+        type : Number
+    } , 
+    lendMoney : {
+        type : Number
     }
+
 });
 
 const User = mongoose.model('User' , UserSchema);
