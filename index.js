@@ -41,9 +41,14 @@ mongoose.connect('mongodb+srv://Charchitg123:Charchitg123@cluster0.mvv9m.mongodb
 
 const Userroutes = require('./routes/user');
 
+
 app.use('/user' , Userroutes);
 
-
+app.get('/' , (req,res,next) => {
+   res.render('lander' , {
+      PageTitle : "Welcome"   
+   }); 
+});
 
 app.listen(3000 , ()=>{
    console.log('Connection worked');

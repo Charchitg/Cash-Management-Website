@@ -18,8 +18,10 @@ const UserSchema = new mongoose.Schema({
     } , 
     lendMoney : {
         type : Number
+    } , 
+    friends : {
+        type : Array
     }
-
 });
 
 const User = mongoose.model('User' , UserSchema);

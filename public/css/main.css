@@ -101,3 +101,21 @@ header{
     align-items: center;
     padding: 0.5rem;
 }
+
+.lander{
+    color: var(--baby-powder);
+    padding: 1rem;
+    text-transform: uppercase;
+    display: block;
+}
+
+
+h3{
+    color: var(--baby-powder);
+    padding: 0.5rem;
+    display: block;
+}
+
+button{
+    display: block;
+}

@@ -11,7 +11,7 @@ exports.getHome = (req , res , next) => {
 exports.postHome = (req,res,next) => {
   friend = req.body.friends;
   username = req.body.username;
-  res.redirect('/user/friends');
+  res.redirect('/user/transfer');
 }
 
 exports.getTransferPage = (req,res,next) =>{
@@ -25,7 +25,10 @@ exports.getTransferPage = (req,res,next) =>{
 exports.postTransferPage = (req,res,next) =>{
   const friendArr = req.body.friend;
   const amountArr = req.body.amount;
-  
+ 
+  // Problem in this logic
+
+
   // for (let i = 0; i < friendArr.length; i++) {
   //   const friendname = friendArr[i];
   //   const amount = amountArr[i];
@@ -54,9 +57,6 @@ exports.getLoginPage = (req,res,next) => {
   });
 }
 
-// exports.PostLoginPage = 
-
-// }
 
 
 exports.getRegisterPage = (req,res,next) =>{
@@ -71,14 +71,28 @@ exports.PostRegisterPage = (req,res,next) =>{
   const password = req.body.Password;
   const Confirm = req.body.ConfirmPassword;
   
-const user = {
-  name : name , 
-  email : email , 
-  password : password
-}
+  User.findOne({email : email } , (err , user) =>{
+    if(err){
+      console.log(err);
+    }
+    if(user){
+      console.log("User Already exists");
+    }
+  });
 
-  const newUser = new User(user);
-  newUser.save()
-  .then(res.redirect('/user/home'))
-  .catch((err) => console.log(err))
+  if(password.length < 8){
+    console.log("Password is too short , length should be more than 8");
+  }
+
+  if(password !== Confirm ){
+    console.log("Passwords do not match");
+  }
+
+  const user = new User( {name , email , password });
+  user.save()
+  .then(res.redirect('/user/login'))
+  .catch((err) =>{
+    console.log(err);
+  });
+
 }
