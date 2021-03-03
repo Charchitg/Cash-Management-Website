@@ -1,6 +1,8 @@
 const User = require('../models/User');
 const Transaction = require('../models/Transaction');
-const passport = require('passport');
+const bcrypt = require('bcryptjs');
+
+
 
 exports.getHome = (req , res , next) => {
     res.render('./home' , {
@@ -88,11 +90,28 @@ exports.PostRegisterPage = (req,res,next) =>{
     console.log("Passwords do not match");
   }
 
-  const user = new User( {name , email , password });
-  user.save()
-  .then(res.redirect('/user/login'))
-  .catch((err) =>{
-    console.log(err);
+  const salt = bcrypt.genSalt(10 , (err , salt)=>{
+
+    if(err){
+      console.log(err);
+      res.redirect('/user/register');
+    }
+
+    bcrypt.hash(password , salt , (err , hash ) => {
+
+      if(err){
+        console.log(err);
+        res.redirect('/user/register');
+      }
+
+      const user = new User( {name , email , password : hash });
+      user.save()
+      .then(res.redirect('/user/login'))
+      .catch((err) =>{
+        console.log(err);
+        });
+    });
   });
 
+  
 }
