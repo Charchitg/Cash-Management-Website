@@ -3,12 +3,8 @@ const passport = require('passport');
 const router = express.Router();
 
 const userController = require('../controllers/user');
+const transferController = require('../controllers/transfer');
 
-router.get('/home' , userController.getHome);
-router.post('/home' , userController.postHome);
-
-router.get('/transfer' , userController.getTransferPage);
-router.post('/transfer' , userController.postTransferPage);
 
 // login routes
 router.get('/login' , userController.getLoginPage);
@@ -27,8 +23,20 @@ router.post('/logout' , (req,res,next) =>{
   res.redirect('/');
 })
 
+// Register User Route
+
 router.get('/register' , userController.getRegisterPage);
 router.post('/register' , userController.PostRegisterPage);
 
+
+router.get('/home' , userController.getHome);
+router.post('/home' , userController.postHome);
+
+router.get('/transfer' , transferController.getTransferPage);
+router.post('/transfer' , transferController.postTransferPage);
+
+router.get('/transaction' , userController.getTransactions);
+
+// router.get('/transaction/:FriendId' , userController.getFriendTransactions);
 
 module.exports = router;

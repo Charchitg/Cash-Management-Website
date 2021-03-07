@@ -14,10 +14,12 @@ const UserSchema = new mongoose.Schema({
         required : true 
     } , 
     borrowMoney : {
-        type : Number
+        type : Number , 
+        default : 0
     } , 
     lendMoney : {
-        type : Number
+        type : Number , 
+        default : 0
     } , 
     friends : {
         type : Array

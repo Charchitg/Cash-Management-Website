@@ -44,12 +44,16 @@ const Userroutes = require('./routes/user');
 
 app.use('/user' , Userroutes);
 
+
+// Lander route
 app.get('/' , (req,res,next) => {
    res.render('lander' , {
       PageTitle : "Welcome"   
    }); 
 });
 
-app.listen(3000 , ()=>{
-   console.log('Connection worked');
+const PORT = process.env.PORT || 3000 ;
+
+app.listen(PORT, ()=>{
+   console.log(`Connection worked at ${PORT}`);
 });

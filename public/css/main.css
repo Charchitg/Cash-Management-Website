@@ -119,3 +119,16 @@ h3{
 button{
     display: block;
 }
+
+.transaction{
+    padding: 1rem;
+    background-color: var(--rich-black-fogra-29); 
+    display: block;
+    min-width: 100%;  
+}
+
+.transaction h3{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-style: normal;
+    color: var(--blue-ryb);
+}

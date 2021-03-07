@@ -1,0 +1,21 @@
+<%- include('./includes/head.ejs') %>
+
+
+<% if (Transfers.length === 0) { %>
+        <h1>No Transactions available</h1>
+        <button class="btn btn-warning">New Transfer</button>
+<% } else { %>
+ 
+    <% Transfers.forEach(Transfer => { %>
+        <div class="transaction">
+     <h3><%= Transfer.username %> </h3>
+     <h3><%= Transfer.friendname %> </h3>
+     <h3><%= Transfer.amount %> </h3>
+     <h3><%= Transfer.message %> </h3>
+     <h3><%= Transfer.Time %> </h3>
+    </div>
+    <% }) %>
+    <% } %>
+
+
+<%- include('./includes/end.ejs') %>
