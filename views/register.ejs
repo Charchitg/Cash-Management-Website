@@ -1,41 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%= PageTitle %></title>
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="/css/main.css" />
-  </head>
-  <body>
-    <header>
-      <div class="header">
-      <a href="#" class="brand">Cash Management Website</a>
+<%- include('./includes/head.ejs') %>
   </div>
-<div class="form">
-<form action="/user/register" method="POST">
-    <div class="form-group">
-        <label for="UserName">Enter Your Name</label>
-        <input type="text" class="form-control" name="Username" id=""  placeholder="Enter Your Name">
-    </div>
-    <div class="form-group">
-        <label for="UserEmail">Enter Your Email-Id</label>
-        <input type="text" class="form-control" name="Email" id=""  placeholder="Enter Your Email-id">
-    </div>
-    <div class="form-group">
-        <label for="friendsInput">Password</label>
-        <input type="password" class="form-control" name="Password" id="Password" placeholder="Enter your Password">
-    </div>
-    <div class="form-group">
-        <label for="friendsInput">Confirm Password</label>
-        <input type="password" class="form-control" name="ConfirmPassword" id="Password" placeholder="Confirm your Password">
-    </div>
-    <button type="submit" class="btn btn-primary">Register</button>
+  </header>
+  <main>
+<div class="form" id="Register">
+  <h2>Register</h2>
+  <%- include('./includes/errors.ejs') %> 
+    <form action="/user/register" method="POST">
+        <div class="form-div">
+            <label for="username">Enter Your Name</label>
+            <input 
+            type="text" 
+            class="form-control" 
+            name="username" 
+            id="username"  
+            placeholder=""
+            value="<%= typeof username != 'undefined' ? username : '' %>" 
+            autocomplete="off">
+        </div>
+        <div class="form-div">
+            <label for="email">Enter Your Email-Id</label>
+            <input type="text" 
+            class="form-control" 
+            name="email" 
+            id="email"  
+            placeholder="" 
+            value="<%= typeof email != 'undefined' ? email : '' %>"
+            autocomplete="off">
+        </div>
+        <div class="form-div">
+            <label for="password">Password</label>
+            <input 
+            type="password" 
+            class="form-control" 
+            name="password" 
+            id="password" 
+            placeholder="" 
+            autocomplete="off">
+        </div>
+        <div class="form-div">
+            <label for="confirm">Confirm Password</label>
+            <input type="password" 
+            class="form-control" 
+            name="confirm" 
+            id="confirm" 
+            placeholder="" 
+            autocomplete="off">
+        </div>
+    <button type="submit" class="btn" id="mainbtn">Register</button>
+  </form>
+  <h3>Already a  User ? Login</h3>
+  <form class="user" action="/user/login" method="GET">
+    <button class="btn registerbtn" id="mainbtn">Login</button>
 </form>
 </div>
 <%- include('./includes/end.ejs') %>

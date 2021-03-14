@@ -1,18 +1,37 @@
 <%- include('./includes/head.ejs') %>
-<form action="/user/logout" method="POST">
-    <button class="btn btn-danger">Logout</button>
-</form>
+
+<%- include('./includes/nav.ejs') %>
+
 <div class="form">
-<form class="user" action="/user/home" method="POST">
-    <div class="form-group">
-        <label for="UserName">Enter Username</label>
-        <input type="text" class="form-control" name="username" id="exampleInputEmail1"  placeholder="Enter Username">
-    </div>
-    <div class="form-group">
+    <form class="user"  action="/user/home" method="POST">
+      <div class="form-div">
+        <label for="UserName">Enter Your Registered Email </label>
+        <button><i class="fas fa-user"></i></button>
+        <input
+          type="text"
+          class="form-control"
+          name="username"
+          id="exampleInputEmail1"
+          autocomplete="off"
+          placeholder=""
+        />
+      </div>
+      <div class="form-div">
         <label for="friendsInput">Number of friends</label>
-        <input type="number" class="form-control" name="friends" id="friends" placeholder="friends">
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-</div>
+        <button><i class="fas fa-users"></i></button>
+        <input
+          type="text"
+          class="form-control"
+          name="friends"
+          id="friends"
+          autocomplete="off"
+          placeholder=""
+        />
+      </div>
+      <button type="submit" class="btn" id="mainbtn">Submit</button>
+    </form>
+  </div>
+
+
+
 <%- include('./includes/end.ejs') %>

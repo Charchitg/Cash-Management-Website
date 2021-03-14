@@ -14,21 +14,7 @@ exports.getTransferPage = (req,res,next) =>{
     const friendArr = req.body.friend;
     const amountArr = req.body.amount;
     const message = req.body.description;
-  
-  // if the number of friend is one then the type of
-  // friendArr is string else it is object 
-  // REMEMBER !!!!!!!!!
-  // if we apply the same logic for one friend and more than one friend 
-  // Eg : 
-  // case 1 = Charchit , case 2 = [Charchit , Rajat ]
-  // IN case 1 the FriendArr will become [C , h ,a,r,c,h,i,t]
-  // whereas in case 2 the FriendArr  remains [Charchit , Rajat ]
-  // 
-  // same happens with the Amount array so in case 1 if amount is 100 for Charchit 
-  //   then amountArr = [1,0,0] therefore for the remaining character in friendArr
-  //  the corresponding amount becomes NaN
-  //
-  
+
   
 if( typeof(friendArr) === "string" ){
 // ONLY ONE FRIEND LOGIC  
@@ -158,7 +144,102 @@ User.findOne({email : friendArr } , (err , friend ) => {
       }
       
     }
-    
-    
+        
   res.redirect('/user/home');
 }  
+
+exports.getTransactions = (req,res,next) => {
+  Transfer.find({username : req.user.email }).limit(10).sort({Time : -1})
+  .then((Transactions)=>{
+    console.log(Transactions);
+      res.render('./transaction' , {
+        PageTitle : "Transactions" , 
+        Transfers : Transactions
+      })
+  })
+  .catch(err => console.log(err));
+}
+
+
+exports.getFriendTransactions = (req , res , next ) => {
+  const friendId = req.params.FriendId;
+  Transfer.find({friendname : friendId }).limit(10).sort({Time : -1 })
+  .then((transfers) =>{
+    res.render('./transaction' , {
+      PageTitle : `{friendId}'s Transactions` , 
+      Transfers : transfers
+    });
+  })
+  .catch((err)=>{
+    console.log(err);
+  });
+
+}
+
+exports.deleteTransaction = (req , res , next ) => {
+  const TransferId = req.params.TransferId;
+  Transfer.findOneAndDelete({ username : TransferId } , (err , transfer)=>{
+    if(err){
+      throw err;
+    }
+    if(!transfer){
+      req.flash('error_msg' , 'No transaction found');
+      res.redirect('/user/transaction');
+    }
+    if(transfer){
+        const amount = parseInt(transfer.amount);
+        User.findOne({email : username} , (err , user) => {
+          if(err){
+            throw err ;
+          }
+          if(user){
+            user.lendMoney -= amount;
+            user.save()
+            .then(console.log('user lend money updated'))
+            .catch((err) => {
+              console.log(err);
+              throw err;
+            });
+          }
+        });
+        
+        User.findOne({email : friendname } , (err , friend ) => {
+          if(err){
+            throw err;
+          }
+          if(friend){
+            friend.borrowMoney -= amount;
+            friend.save()
+            .then(console.log('friend borrow money updated'))
+            .catch((err) => {
+              console.log(err);
+              throw err;
+            });
+          }
+        });
+        req.flash('success_msg' , 'Transaction deleted Successfully ');
+        res.redirect('user/transaction');
+    }    
+  });
+}
+
+
+exports.getEditTransaction = (req,res,next) =>{
+  const TransferId = req.params.TransferId;
+  Transfer.findOne({ username : TransferId } , (err , transfer)=>{
+    if(err){
+      throw err;
+    }
+    if(!transfer){
+      req.flash('error_msg' , 'No transaction found');
+      res.redirect('/user/transaction');
+    }
+    if(transfer){
+      
+      res.render('./transfer' , {
+        PageTitle : "Edit Transfer" , 
+
+      })
+    }
+});
+}

@@ -1,33 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%= PageTitle %></title>
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-      crossorigin="anonymous"
+<%- include('./includes/head.ejs') %>
+</div>
+</header>
+<main>               
+<div class="form" id="login">
+  <h2>Sign-in</h2>
+  <%- include('./includes/errors.ejs') %> 
+<form  class="user" action="/user/login" method="POST">
+  <div class="form-div">
+    <label for="email">Enter Your registered Email</label>
+    <button><i class="fas fa-user"></i></button>
+    <input
+      type="email"
+      id="email"
+      class="form-control"
+      name="email"
+      autocomplete="off"
     />
-    <link rel="stylesheet" href="/css/main.css" />
-  </head>
-  <body>
-    <header>
-      <div class="header">
-      <a href="#" class="brand">Cash Management Website</a>
   </div>
- <div class="form">
-<form action="" method="POST">
-    <div class="form-group">
-        <label for="email">Enter Your registered Email</label>
-        <input type="email" class="form-control" name="email" >
-    </div>
-    <div class="form-group">
-        <label for="Password">Password</label>
-        <input type="password" class="form-control" name="password" >
-    </div>
-    <button type="submit" class="btn btn-primary">Login</button>
+  <div class="form-div">
+    <label for="password">Password </label>
+    <button><i class="fas fa-lock"></i></button>
+    <input
+      type="password"
+      id="password"
+      class="form-control"
+      name="password"
+      autocomplete="off"
+    />
+  </div>
+  <button type="submit" class="btn" id="mainbtn">Login</button>
+</form>
+<h3>New User ? Register to get started</h3>
+<form class="user" action="/user/register" method="GET">
+  <button class="btn registerbtn" id="mainbtn">Register</button>
 </form>
 </div>
 <%- include('./includes/end.ejs') %>

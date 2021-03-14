@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon index.js"
   },
-  "author": "",
+  "author": "Charchit Gupta",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",

@@ -1,9 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400&family=Poppins:wght400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+/* 
+font-family: 'Nunito', sans-serif;
+font-family: 'Poppins', sans-serif;
+font-family: 'Roboto', sans-serif;
+*/
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    /* background-color: var(--jasmine); */
 }
 :root{
+    /*  colour vars  */
     --rich-black-fogra-39: #050505ff;
 --blue-ryb: #004fffff;
 --maximum-blue: #31afd4ff;
@@ -21,28 +31,33 @@
 --jasmine: #f4d58dff;
 --international-orange-engineering: #bf0603ff;
 --dark-red: #8d0801ff; 
+
+/*  font vars   */
+--poppins : 'Poppins' , sans-serif;
+--roboto : 'Roboto', sans-serif;
+--nunito : 'Nunito', sans-serif;
  }
 
 ul {
     list-style-type: none;   
 }
 
-li{
-    display: inline;
-}
 li a{
     text-decoration: none;
     list-style-type: none; 
-    display: inline;
 }
 
 a{
     text-decoration: none;   
  }
 
-a:hover , a:active{
+a.nav-a:hover , a.nav-a:active{
     text-decoration: none;
+    font-weight: 500;
+    background-color: var(--orange-peel);
+    border-radius: 1rem;
     color: var(--rich-black-fogra-39);
+    font-family: var(--poppins);
 }
 
 h1,h2,h3,h4{
@@ -50,85 +65,126 @@ h1,h2,h3,h4{
      padding: 0;
      display: inline;
 }
-header{
-    background-color: var(--rose-madder);
-    height: 100vh;
-}
+
 .header{
-    /* background-color: var(--rich-black-fogra-39); */
+    min-height: 10vh;
     display: flex;
-    justify-content: space-between;
+    justify-content:space-evenly;
     align-items: center;
+    background-color: var(--rich-black-fogra-29);
 }
 
+
 .brand{
-    font-weight: bold;
+    font-weight: 500;
+    font-family: var(--roboto);
     text-transform: uppercase;
-    padding: 0rem 1.5rem;
+    padding: 1rem 1.5rem;
     font-size: 1.5rem;
     color: var(--baby-powder);
 }
 
-.header_nav{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .nav-ul{
-    margin: 0;
+  margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-
-
 .nav-li{
-    padding: 1rem;
+    padding:0.5rem;
     text-transform: uppercase;
 }
 
 .nav-a{
     color: var(--baby-powder);
-    font-weight: bold;
-    font-family:'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    padding: 0.5rem;
+    font-family:var(--poppins);
+    font-weight: 300;
 }
+
+.btn{
+    text-transform: uppercase;
+    font-family: var(--nunito);
+    padding: 0.5rem;
+    background-color: var(--tiffany-blue);
+    border-width: 0;
+    border-radius: 1rem;
+    min-width: 100%;
+}
+
+#mainbtn{
+    margin: 1rem;
+    color: var(--rich-black-fogra-39);
+}
+
+main{
+    background-color: var(--rich-black-fogra-29);
+    min-height: 90vh;
+    width: 100%;  
+    margin: 0; 
+    overflow-y: hidden;
+}
+
 
 .form{
+    padding: 6rem;
     display: flex;
-    justify-content: center;
+    justify-content:center;
     align-items: center;
-    padding: 0.5rem;
+    min-width: 100vw;
+    flex-direction: column;
 }
 
-.lander{
+
+
+#login{
+    padding: 2rem;
+}
+
+#Register{
+    padding: 0rem;
+}
+
+
+.form h2{
+    font-family: var(--poppins);
+    font-weight: 400;
+    margin: 1rem;
     color: var(--baby-powder);
-    padding: 1rem;
+    font-size: 1.2rem;
     text-transform: uppercase;
-    display: block;
 }
 
-
-h3{
+.form h3{
+    font-family: var(--poppins);
+    font-weight: 400;
+    margin: 1rem;
     color: var(--baby-powder);
+    text-transform: uppercase;
+}
+
+.user{
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.form-div{
     padding: 0.5rem;
-    display: block;
+    text-transform: capitalize;
+    font-family: var(--nunito);
 }
 
-button{
+.form-div label{
     display: block;
+    padding: 0.5rem;
+    color:var(--rose-madder);
 }
 
-.transaction{
-    padding: 1rem;
-    background-color: var(--rich-black-fogra-29); 
-    display: block;
-    min-width: 100%;  
-}
-
-.transaction h3{
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-style: normal;
-    color: var(--blue-ryb);
+.form-control{
+    background-color: var(--baby-powder);
+    height: 1.5rem;
+    border-width: 0;
 }

@@ -1,4 +1,5 @@
 // Basic app setup
+require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const BodyParser = require('body-parser');
@@ -25,7 +26,7 @@ app.set('view engine' , 'ejs');
 app.use(BodyParser.urlencoded({extended : false}));
 app.use(express.static(path.join(__dirname , 'public')));
 app.use(session({
-   secret : "Trial Login" , 
+   secret : process.env.SECRET_KEY , 
    resave : false , 
    saveUninitialized : false
 }));
@@ -35,24 +36,35 @@ app.use(passport.session());
 
 
 // connecting to db
-mongoose.connect('mongodb+srv://Charchitg123:Charchitg123@cluster0.mvv9m.mongodb.net/myFirstDatabase?retryWrites=true&w=majority' , {
+mongoose.connect( process.env.MONGO_URI , {
    useNewUrlParser : true , useUnifiedTopology : true
 })
 
+
+// GLobal variables for messages
+
+app.use((req,res,next) =>{
+   res.locals.success_msg = req.flash('success_msg');
+   res.locals.error_msg = req.flash('error_msg');
+   res.locals.error = req.flash('error');
+   next();
+});
+
+
 const Userroutes = require('./routes/user');
+const { NotAuthenticated } = require('./config/auth');
 
 
 app.use('/user' , Userroutes);
 
-
 // Lander route
-app.get('/' , (req,res,next) => {
+app.get('/' , NotAuthenticated ,  (req,res,next) => {
    res.render('lander' , {
       PageTitle : "Welcome"   
    }); 
 });
 
-const PORT = process.env.PORT || 3000 ;
+const PORT = process.env.PORT || 5000 ;
 
 app.listen(PORT, ()=>{
    console.log(`Connection worked at ${PORT}`);

@@ -5,7 +5,7 @@ const TransferSchema = new mongoose.Schema({
         required : true
     } , 
     friendname : {
-        type : String ,
+        type : Array ,
         required : true
     } ,
     amount : {

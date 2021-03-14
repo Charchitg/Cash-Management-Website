@@ -9,7 +9,7 @@ module.exports = (passport) => {
         .then(user =>{
             // no user is found
          if(!user){
-             console.log('1');
+             
              return done(null,false,{message : 'No user exist with this email'});
          }
             // password check
@@ -22,13 +22,13 @@ module.exports = (passport) => {
 
              
              if(res === false){
-                console.log('2');
+                
              return done(null ,false , {message : 'Password is incorrect'});
              }
             
              if(res === true){
                  // user is found
-                console.log('3');
+               
                 return done(null , user , {message : 'Login successful'});
              } 
         })

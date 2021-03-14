@@ -1,30 +1,25 @@
 <%- include('./includes/head.ejs') %>
+<%- include('./includes/nav.ejs') %>
 
-<h1>routes worked</h1>
-<p><%= Username %></p>
-<div class="form">
-  <form action="/user/transfer" method="POST">
+<main>
+<div class="form" id="Register">
+  <h2>Transfer Details</h2>
+  <form class="user" action="/user/transfer" method="POST">
         <% for( let index = 0; index < parseInt(friends); index++ ) { %>
-    <div>
-      <label for="friend_name">friend name</label>
-    </div>
-    <div>
-      <input type="text" id="friend_name" name="friend" />
-    </div>
-    <div>
-      <label for="amount">amount</label>
-    </div>
-    <div>
-      <input type="text" id="amount" name="amount" />
-    </div>
+          <div class="form-div">
+            <label for="friend_name">friend name</label>
+            <input type="text" id="friend_name" name="friend" class="form-control" autocomplete="off"/>
+          </div>
+          <div class="form-div">
+            <label for="amount">amount</label>
+            <input type="text" class="form-control"  id="amount" name="amount" autocomplete="off"/>
+          </div>
     <% } %>
-    <div>
+    <div class="form-div">
       <label for="description">Description</label>
+      <input type="text" id="description" name="description" class="form-control" autocomplete="off"/>
     </div>
-    <div>
-      <input type="text" id="description" name="description" />
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn" id="mainbtn">Submit</button>
   </form>
 </div>
 <%- include('./includes/end.ejs') %>
