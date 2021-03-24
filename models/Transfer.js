@@ -9,7 +9,7 @@ const TransferSchema = new mongoose.Schema({
         required : true
     } ,
     amount : {
-        type : Number , 
+        type : Array , 
         required : true
     } , 
     message : {

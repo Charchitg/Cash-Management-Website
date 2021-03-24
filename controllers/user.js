@@ -4,14 +4,16 @@ const bcrypt = require('bcryptjs');
 
 exports.getLoginPage = (req,res,next) => {
   res.render('./login', {
-    PageTitle : "Login"
+    PageTitle : "Login" , 
+    path : "/user/login"
   });
 }
 // Post Login Route is written in routes files
 
 exports.getRegisterPage = (req,res,next) =>{
   res.render('./register', {
-    PageTitle : "Register"
+    PageTitle : "Register" , 
+    path : "/user/register"
   });
 }
 
@@ -41,15 +43,15 @@ exports.PostRegisterPage = (req,res,next) =>{
   if(password.length < 8){
     console.log("Password is too short , length should be more than 8");
     errors.push("Password is too short , length should be more than 8");
-    //res.redirect('/user/register');
+   
   }
 
   if(password !== confirm ){
     console.log("Passwords do not match");
     errors.push("Passwords do not match");
-    //res.redirect('/user/register');
   }
 
+  console.log(errors);
   if(errors.length){
     console.log(errors);
     res.render('./register' , {
@@ -90,20 +92,11 @@ else{
   
 }
 
-// <% if(error != ''){ %>
-//   <div class="alert alert-danger alert-dismissible fade show" role="alert">
-//     <%= error %>
-//     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-//       <span aria-hidden="true">&times;</span>
-//     </button>
-//   </div>
-//   <% } %>
-
-
 
 exports.getHome = (req , res , next) => {
     res.render('./home' , {
-        PageTitle : "Home"
+        PageTitle : "Home" , 
+        path : "/user/home"
       });
 }
 

@@ -6,7 +6,8 @@ exports.getTransferPage = (req,res,next) =>{
     res.render('./transfer' , {
       PageTitle : "Transfer" , 
       Username : username , 
-      friends : friend 
+      friends : friend  , 
+      path : "/user/transfer"
     });
   }
   
@@ -16,10 +17,10 @@ exports.getTransferPage = (req,res,next) =>{
     const message = req.body.description;
 
   
-if( typeof(friendArr) === "string" ){
+  if( typeof(friendArr) === "string" ){
 // ONLY ONE FRIEND LOGIC  
 
-User.findOne({email : friendArr } , (err , friend ) => {
+User.findOne({ email : friendArr } , ( err , friend ) => {
     if(err){
       console.log("error1");
       console.log(err);
@@ -33,7 +34,8 @@ User.findOne({email : friendArr } , (err , friend ) => {
       console.log('no user found ');
       res.status(404).render('./error' , {
         PageTitle : "Transaction error" , 
-        Error_Msg : "no user found"
+        Error_Msg : "no user found" , 
+        friendname : friendArr
       });
     }
     else{
@@ -41,111 +43,112 @@ User.findOne({email : friendArr } , (err , friend ) => {
       const username = req.user.email;
       const friendname = friend.email;
       const amount = parseInt(amountArr);
-      const NewTransfer = new Transfer({ username , friendname , amount , message});
-      req.user.lendMoney += amount;
-      friend.borrowMoney += amount;
-      req.user.save()
-      .then(()=>{
-        console.log('user db update')
-        friend.save()
-        .then(()=>{
-          console.log('friend db update')
+
+          req.user.lendMoney += amount;
+          req.user.save()
+          .then(console.log(`${req.user.email} db updated`))
+          .catch((err) => console.log(err));
+          friendname.borrowMoney += amount;
+          friendname.save()
+          .then(console.log(`${friendname.email} db updated`))
+          .catch((err) => console.log(err));
+          const NewTransfer = new Transfer({username , friendname , amount , message});
           NewTransfer.save()
-          .then(()=> {
-            console.log('new transaction added');
-            //res.redirect('/user/home');
-          }
-          )
-          .catch((err)=> {
-            console.log(err);
-            res.status(404).render('./error' , {
-              PageTitle : "Transaction error" , 
-              Error_Msg : "Transaction not saved "
-            })
-          }
-          );
-        })
-        .catch(()=>{
-          console.log(err);
-          res.status(404).render('./error' , {
-            PageTitle : "Transaction error" , 
-            Error_Msg : "Could not access friend's DB"
-          });
-        });
+          .then( console.log('New Transfer Added') )
+          .catch((err) => console.log(err));
+        }
       })
-      .catch(()=>{
-        console.log(err);
-        res.status(404).render('./error' , {
-          PageTitle : "Transaction error" , 
-          Error_Msg : "Could not access User DB"
-        });
-      });
     }
-  });
+
+// Problem lies in the else section
+// 
 
 
-  }
      else{
 // MORE THAN 1 FRIEND
       let Amount = 0;
+      // Calculating Total Amount
       for (let i = 0; i < amountArr.length; i++) {
           Amount = Amount + parseInt(amountArr[i]);
       } 
-      req.user.lendMoney += Amount;
+      // Checking if all users exist
+      let notpresent = [];
     for (let i = 0; i < friendArr.length; i++) {
-      User.findOne({email : friendArr[i] } , (err , friend ) => {
+      User.findOne({email : friendArr[i] } , (err , friend) => {
+        console.log(Present);
         if(err){
           console.log(err);
-          res.status(404).render('./error' , {
-            PageTitle : "Transaction error" , 
-            Error_Msg : ""
-          });
+          throw err;
         } 
         else if(!friend){
-          console.log('no user found');
-          res.status(404).render('./error' , {
-            PageTitle : "Transaction error" , 
-            Error_Msg : "no user found"
-          });
+          // if any one  is not present
+          console.log(' user not found');
+          console.log(friendArr[i]);
+          // if here we try and update notpresent array it does not gets updated
         }
-        else{
-          const username = req.user.email;
-      const friendname = friend.email;
-      const amount = parseInt(amountArr[i]);
-          const NewTransfer = new Transfer({username , friendname , amount , message});
-          friend.borrowMoney += amount;
+        else if(friend){
+          console.log("user found");
+          console.log(friend);
+        }
+         // ends 
+        });
+        if(!Present){
+        notpresent.push(friendArr[i]);
+        }
+        console.log(notpresent);
+      }
+      console.log("NotPresent "  , notpresent);      
+     if(notpresent.length === 0){
+      for (let i = 0; i < friendArr.length; i++) {
+        User.findOne({email : friendArr[i] } , (err , friend ) => {
+          if(err){
+            console.log(err);
+            throw err;
+          } 
+          else if(friend){
+            friend.borrowMoney += parseInt(amountArr[i]);
             friend.save()
-            .then(()=>{
-              console.log('friend db update')
-              NewTransfer.save()
-              .then(()=> {
-                console.log('new transaction added');
-                //res.redirect('/user/home');
-              }
-              )
-              .catch((err)=> {
-                console.log(err);
-            res.status(404).render('./error' , {
-              PageTitle : "Transaction error" , 
-              Error_Msg : "Transaction not saved "
+            .then(console.log(`${friend.email} db updated`))
+            .catch(err =>{
+              console.log('err');
+              throw err;
             });
             }
-            );
-            })
-            .catch((err)=>{
-              console.log(err);
-            res.status(404).render('./error' , {
-              PageTitle : "Transaction error" , 
-              Error_Msg : "Could not access friend's DB"
-            })
-            });
-          }
+           // ends 
+          });
+        }
+        req.user.lendMoney += Amount;
+        console.log(typeof(Amount));
+        req.user.save()
+        .then(console.log(`${req.user.email} db updated`))
+        .catch(err => console.log(err));
+        const username = req.user.email;
+        const friendname = [];
+        friendname.push(...friendArr);
+        console.log(friendname);
+        const amount = [];
+        amount.push(...amountArr);
+        console.log(amount);
+        const NewTransfer = new Transfer({username , friendname  , amount , message });
+        NewTransfer.save()
+        .then(() => {
+          console.log("New Transaction saved");
+          res.redirect('/user/home');
         })
-      }
-      
+        .catch((err) => {
+          console.log(err);
+          //req.flash('success_msg' , 'Transaction not saved ');
+          res.redirect('/user/tranfer');
+        });
+     }
+     else{
+       res.render('./error' , {
+         PageTitle : "Transaction Error" , 
+         Error_Msg : "User not found" , 
+         friendname : friendname
+       })
+     }
     }
-        
-  res.redirect('/user/home');
 }  
 
 exports.getTransactions = (req,res,next) => {
@@ -166,7 +169,7 @@ exports.getFriendTransactions = (req , res , next ) => {
   Transfer.find({friendname : friendId }).limit(10).sort({Time : -1 })
   .then((transfers) =>{
     res.render('./transaction' , {
-      PageTitle : `{friendId}'s Transactions` , 
+      PageTitle : `${friendId}'s Transactions` , 
       Transfers : transfers
     });
   })
@@ -183,7 +186,7 @@ exports.deleteTransaction = (req , res , next ) => {
       throw err;
     }
     if(!transfer){
-      req.flash('error_msg' , 'No transaction found');
+      //req.flash('error_msg' , 'No transaction found');
       res.redirect('/user/transaction');
     }
     if(transfer){
@@ -217,29 +220,29 @@ exports.deleteTransaction = (req , res , next ) => {
             });
           }
         });
-        req.flash('success_msg' , 'Transaction deleted Successfully ');
+        //req.flash('success_msg' , 'Transaction deleted Successfully ');
         res.redirect('user/transaction');
     }    
   });
 }
 
 
-exports.getEditTransaction = (req,res,next) =>{
-  const TransferId = req.params.TransferId;
-  Transfer.findOne({ username : TransferId } , (err , transfer)=>{
-    if(err){
-      throw err;
-    }
-    if(!transfer){
-      req.flash('error_msg' , 'No transaction found');
-      res.redirect('/user/transaction');
-    }
-    if(transfer){
+// exports.getEditTransaction = (req,res,next) =>{
+//   const TransferId = req.params.TransferId;
+//   Transfer.findOne({ username : TransferId } , (err , transfer)=>{
+//     if(err){
+//       throw err;
+//     }
+//     if(!transfer){
+//       req.flash('error_msg' , 'No transaction found');
+//       res.redirect('/user/transaction');
+//     }
+//     if(transfer){
       
-      res.render('./transfer' , {
-        PageTitle : "Edit Transfer" , 
+//       res.render('./transfer' , {
+//         PageTitle : "Edit Transfer" , 
 
-      })
-    }
-});
-}
+//       })
+//     }
+// });
+// }
