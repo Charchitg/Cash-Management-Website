@@ -1,38 +1,39 @@
 <%- include('./includes/head.ejs') %>
-</div>
-</header>
-<main>               
-<div class="form" id="login">
-  <h2>Sign-in</h2>
-  <%- include('./includes/errors.ejs') %> 
-<form  class="user" action="/user/login" method="POST">
-  <div class="form-div">
-    <label for="email">Enter Your registered Email</label>
-    <button><i class="fas fa-user"></i></button>
-    <input
-      type="email"
-      id="email"
-      class="form-control"
-      name="email"
-      autocomplete="off"
-    />
-  </div>
-  <div class="form-div">
-    <label for="password">Password </label>
-    <button><i class="fas fa-lock"></i></button>
-    <input
-      type="password"
-      id="password"
-      class="form-control"
-      name="password"
-      autocomplete="off"
-    />
-  </div>
-  <button type="submit" class="btn" id="mainbtn">Login</button>
-</form>
-<h3>New User ? Register to get started</h3>
-<form class="user" action="/user/register" method="GET">
-  <button class="btn registerbtn" id="mainbtn">Register</button>
-</form>
-</div>
+
+    <!--Main Start -->
+    <main class="main">
+      <div class="heading">
+        <h2 class="heading_msg">Login</h2>
+      </div>
+      <div class="form_div">
+        <form action="/user/login" method="POST">
+          <div class="form_element">
+            <label for="username">Username</label>
+            <input
+              type="email"
+              required="true"
+              autocomplete="off"
+              id="username"
+              name="username"
+            />
+          </div>
+          <div class="form_element">
+            <label for="password">password</label>
+            <input
+              type="password"
+              required="true"
+              autocomplete="off"
+              id="password"
+              name="password"
+            />
+          </div>
+          <div class="submitbtn">
+          <button class="button" type="submit">Submit</button>
+        </div>
+        </form>
+      </div>
+  </main>
+
+  <!-- Main Ends -->
+
 <%- include('./includes/end.ejs') %>

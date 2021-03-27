@@ -1,56 +1,59 @@
 <%- include('./includes/head.ejs') %>
+
+<!--Main Start -->
+<main class="main">
+  <div class="heading">
+    <h2 class="heading_msg">Register</h2>
   </div>
-  </header>
-  <main>
-<div class="form" id="Register">
-  <h2>Register</h2>
-  <%- include('./includes/errors.ejs') %> 
-    <form action="/user/register" method="POST">
-        <div class="form-div">
-            <label for="username">Enter Your Name</label>
-            <input 
-            type="text" 
-            class="form-control" 
-            name="username" 
-            id="username"  
-            placeholder=""
-            value="<%= typeof username != 'undefined' ? username : '' %>" 
-            autocomplete="off">
+  <div class="form_div">
+    <form action="/user/register">
+      <div class="form_element">
+        <label for="name">Name</label>
+        <input
+          type="text"
+          required="true"
+          autocomplete="off"
+          id="name"
+          name="name"
+        />
+      </div>
+      <div class="form_element">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            required="true"
+            autocomplete="off"
+            id="email"
+            name="email"
+          />
         </div>
-        <div class="form-div">
-            <label for="email">Enter Your Email-Id</label>
-            <input type="text" 
-            class="form-control" 
-            name="email" 
-            id="email"  
-            placeholder="" 
-            value="<%= typeof email != 'undefined' ? email : '' %>"
-            autocomplete="off">
+        <div class="form_element">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            required="true"
+            autocomplete="off"
+            id="password"
+            name="password"
+          />
         </div>
-        <div class="form-div">
-            <label for="password">Password</label>
-            <input 
-            type="password" 
-            class="form-control" 
-            name="password" 
-            id="password" 
-            placeholder="" 
-            autocomplete="off">
-        </div>
-        <div class="form-div">
-            <label for="confirm">Confirm Password</label>
-            <input type="password" 
-            class="form-control" 
-            name="confirm" 
-            id="confirm" 
-            placeholder="" 
-            autocomplete="off">
-        </div>
-    <button type="submit" class="btn" id="mainbtn">Register</button>
-  </form>
-  <h3>Already a  User ? Login</h3>
-  <form class="user" action="/user/login" method="GET">
-    <button class="btn registerbtn" id="mainbtn">Login</button>
-</form>
-</div>
+      <div class="form_element">
+        <label for="confirm">Confirm Password</label>
+        <input
+          type="password"
+          required="true"
+          autocomplete="off"
+          id="confirm"
+          name="confirm"
+        />
+      </div>
+      <div class="submitbtn">
+      <button class="button" type="submit">Submit</button>
+    </div>
+    </form>
+  </div>
+</main>
+
+<!-- Main Ends -->
+
 <%- include('./includes/end.ejs') %>

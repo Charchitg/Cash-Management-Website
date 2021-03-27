@@ -92,7 +92,7 @@ User.findOne({ email : friendArr } , ( err , friend ) => {
         }
          // ends 
         });
-        if(!Present){
+        if(notPresent){
         notpresent.push(friendArr[i]);
         }
         console.log(notpresent);

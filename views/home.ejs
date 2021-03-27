@@ -1,37 +1,39 @@
 <%- include('./includes/head.ejs') %>
 
-<%- include('./includes/nav.ejs') %>
-<main>
-<div class="form">
-    <form class="user"  action="/user/home" method="POST">
-      <div class="form-div">
-        <label for="UserName">Enter Your Registered Email </label>
-        <button><i class="fas fa-user"></i></button>
-        <input
-          type="text"
-          class="form-control"
-          name="username"
-          id="exampleInputEmail1"
-          autocomplete="off"
-          placeholder=""
-        />
+    <!--Main Start -->
+    <main class="main">
+      <div class="heading">
+        <h2 class="heading_msg">Split Bill</h2>
       </div>
-      <div class="form-div">
-        <label for="friendsInput">Number of friends</label>
-        <button><i class="fas fa-users"></i></button>
-        <input
-          type="text"
-          class="form-control"
-          name="friends"
-          id="friends"
-          autocomplete="off"
-          placeholder=""
-        />
+      <div class="form_div">
+        <form action="/user/transfer">
+          <div class="form_element">
+            <label for="username">Username</label>
+            <input
+              type="email"
+              required="true"
+              autocomplete="off"
+              id="username"
+              name="username"
+            />
+          </div>
+          <div class="form_element">
+            <label for="friends">Number of friends</label>
+            <input
+              type="text"
+              required="true"
+              autocomplete="off"
+              id="friends"
+              name="friends"
+            />
+          </div>
+          <div class="submitbtn">
+          <button class="button" type="submit">Submit</button>
+        </div>
+        </form>
       </div>
-      <button type="submit" class="btn" id="mainbtn">Submit</button>
-    </form>
-  </div>
+  </main>
 
-
+  <!-- Main Ends -->
 
 <%- include('./includes/end.ejs') %>

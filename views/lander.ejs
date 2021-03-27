@@ -1,5 +1,26 @@
 <%- include('./includes/head.ejs') %>
 
-
+<main >
+    <div class="lander_msg">
+      <h1>WELCOME!!!</h1>
+      <h3>Start Splitting your Bills and Manage
+       your Transactions with PayBook.</h3>
+    </div>
+    <div>
+    <div class="register_div">
+      <h3>New User?</h3>
+      <form method="GET" action="/user/register">
+        <button type="submit" class="button">Register</button>
+      </form>
+    </div>
+    <div class="login_div">
+      <h3>Existing User?</h3>
+      <form method="GET" action="/user/login">
+        <button type="submit" class="button">Login</button>
+      </form>
+      
+    </div>
+  </div>
+  </main>
 
 <%- include('./includes/end.ejs') %>
