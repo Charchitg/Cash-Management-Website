@@ -11,7 +11,7 @@ exports.getTransferPage = (req,res,next) =>{
     });
   }
   
-  exports.postTransferPage = (req,res,next) =>{
+  exports.postTransferPage = async (req,res,next) =>{
     const friendArr = req.body.friend;
     const amountArr = req.body.amount;
     const message = req.body.description;
@@ -20,7 +20,7 @@ exports.getTransferPage = (req,res,next) =>{
   if( typeof(friendArr) === "string" ){
 // ONLY ONE FRIEND LOGIC  
 
-User.findOne({ email : friendArr } , ( err , friend ) => {
+  await User.findOne({ email : friendArr } , ( err , friend ) => {
     if(err){
       console.log("error1");
       console.log(err);
@@ -72,10 +72,12 @@ User.findOne({ email : friendArr } , ( err , friend ) => {
           Amount = Amount + parseInt(amountArr[i]);
       } 
       // Checking if all users exist
-      let notpresent = [];
+      var notpresent = [];
     for (let i = 0; i < friendArr.length; i++) {
-      User.findOne({email : friendArr[i] } , (err , friend) => {
-        console.log(Present);
+      // email : friendArr[i]
+      await User.findOne({ email : friendArr[i] } , function(err , friend) {
+        console.log("vd");
+        console.log(friend);
         if(err){
           console.log(err);
           throw err;
@@ -85,6 +87,7 @@ User.findOne({ email : friendArr } , ( err , friend ) => {
           console.log(' user not found');
           console.log(friendArr[i]);
           // if here we try and update notpresent array it does not gets updated
+          notpresent.push(friendArr[i]);
         }
         else if(friend){
           console.log("user found");
@@ -92,9 +95,7 @@ User.findOne({ email : friendArr } , ( err , friend ) => {
         }
          // ends 
         });
-        if(!Present){
-        notpresent.push(friendArr[i]);
-        }
+        
         console.log(notpresent);
       }
       console.log("NotPresent "  , notpresent);      
@@ -142,11 +143,11 @@ User.findOne({ email : friendArr } , ( err , friend ) => {
         });
      }
      else{
-       res.render('./error' , {
-         PageTitle : "Transaction Error" , 
-         Error_Msg : "User not found" , 
-         friendname : friendname
-       })
+      res.status(404).render('./error' , {
+        PageTitle : "Transaction error" , 
+        Error_Msg : "no user found" , 
+        friendname : friendArr
+      });
      }
     }
 }  
