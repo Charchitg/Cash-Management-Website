@@ -1,8 +1,10 @@
 const User = require('../models/User');
 const Transfer = require('../models/Transfer');
 
-
 exports.getTransferPage = (req,res,next) =>{
+   console.log(req.body);
+   console.log("in get transfer route");
+console.log(typeof(username) , typeof(friend));
     res.render('./transfer' , {
       PageTitle : "Transfer" , 
       Username : username , 
@@ -10,6 +12,7 @@ exports.getTransferPage = (req,res,next) =>{
       path : "/user/transfer"
     });
   }
+
   
   exports.postTransferPage = async (req,res,next) =>{
     const friendArr = req.body.friend;
@@ -60,11 +63,7 @@ exports.getTransferPage = (req,res,next) =>{
       })
     }
 
-// Problem lies in the else section
-// 
-
-
-     else{
+    else{
 // MORE THAN 1 FRIEND
       let Amount = 0;
       // Calculating Total Amount
@@ -72,11 +71,10 @@ exports.getTransferPage = (req,res,next) =>{
           Amount = Amount + parseInt(amountArr[i]);
       } 
       // Checking if all users exist
-      var notpresent = [];
+      let notpresent = [];
     for (let i = 0; i < friendArr.length; i++) {
-      // email : friendArr[i]
+     
       await User.findOne({ email : friendArr[i] } , function(err , friend) {
-        console.log("vd");
         console.log(friend);
         if(err){
           console.log(err);
@@ -95,9 +93,6 @@ exports.getTransferPage = (req,res,next) =>{
         }
          // ends 
         });
-        if(notPresent){
-        notpresent.push(friendArr[i]);
-        }
         console.log(notpresent);
       }
       console.log("NotPresent "  , notpresent);      
@@ -146,7 +141,7 @@ exports.getTransferPage = (req,res,next) =>{
      }
      else{
       res.status(404).render('./error' , {
-        PageTitle : "Transaction error" , 
+        PageTitle : "Invalid Users" , 
         Error_Msg : "no user found" , 
         friendname : friendArr
       });
@@ -155,21 +150,23 @@ exports.getTransferPage = (req,res,next) =>{
 }  
 
 exports.getTransactions = (req,res,next) => {
-  Transfer.find({username : req.user.email }).limit(10).sort({Time : -1})
-  .then((Transactions)=>{
+  Transfer.find({username : req.user.email }).limit(5).sort({ Time : -1 })
+  .then( ( Transactions ) => {
     console.log(Transactions);
       res.render('./transaction' , {
         PageTitle : "Transactions" , 
         Transfers : Transactions
-      })
+      });
   })
-  .catch(err => console.log(err));
+  .catch((err) => {
+    console.log(err)
+  });
 }
 
 
 exports.getFriendTransactions = (req , res , next ) => {
   const friendId = req.params.FriendId;
-  Transfer.find({friendname : friendId }).limit(10).sort({Time : -1 })
+  Transfer.find({friendname : friendId }).limit(5).sort({Time : -1 })
   .then((transfers) =>{
     res.render('./transaction' , {
       PageTitle : `${friendId}'s Transactions` , 
@@ -230,9 +227,9 @@ exports.deleteTransaction = (req , res , next ) => {
 }
 
 
-// exports.getEditTransaction = (req,res,next) =>{
+// exports.getEditTransaction = (req,res,next) => {
 //   const TransferId = req.params.TransferId;
-//   Transfer.findOne({ username : TransferId } , (err , transfer)=>{
+//   Transfer.findOne({ username : TransferId } , (err , transfer) => {
 //     if(err){
 //       throw err;
 //     }

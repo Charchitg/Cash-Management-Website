@@ -103,6 +103,8 @@ exports.getHome = (req , res , next) => {
 exports.postHome = (req,res,next) => {
   friend = req.body.friends;
   username = req.body.username;
+  console.log(typeof(friend) , typeof(username));
+  console.log(friend , " " , username);
   res.redirect('/user/transfer');
 }
 

@@ -1,10 +1,14 @@
 <%- include('./includes/head.ejs') %>
-<%- include('./includes/nav.ejs') %>
 
+<main class="main">
 <% Transfers.forEach(transfer => { %>
-    <h4><%= transfer.username %></h4>
-    <h4><%= transfer.friendname%></h4>
-    <h4><%= transfer.Time %> </h4>
+<div class="transfer_div">
+    <h3><%= transfer.username %> </h3>
+    <h3><%= transfer.friendname %> </h3>
+    <h3><%= transfer.amount %> </h3>
+    <h3><%= transfer.Time %> </h3>
+    <button><a href="/<%= friendname %> ">view transaction</a></button>
+</div>    
 <% }) %>
-
+</main>
 <%- include('./includes/end.ejs') %>
