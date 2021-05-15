@@ -19,7 +19,23 @@ router.post('/login', (req,res,next) => {
   })(req,res,next);
 });
 
-// logout route
+router.get('/login/google' , (req,res,next) => {
+  passport.authenticate('google' , {
+    scope : ['profile', 'email']
+  })(req,res,next);
+});
+
+// google redirect handling
+
+router.get('/google/redirect' , (req,res,next) =>{
+passport.authenticate('google' , {
+  successRedirect : '/user/home' , 
+  failureRedirect : '/user/login'
+})(req,res,next);
+});
+
+
+//  logout route
 router.post('/logout' , (req,res,next) =>{
   req.logOut();
   //req.flash('success_msg'  "You have logged out successfully");
@@ -38,14 +54,16 @@ router.post('/home' , userController.postHome);
 router.get('/transfer'  , Authenticated , transferController.getTransferPage);
 router.post('/transfer' , transferController.postTransferPage);
 
-// router.get('/edit-transaction/:TransferId'  , Authenticated , userController.getEditTransaction);
-// router.get('/edit-transaction' ,  Authenticated , userController.postEditTransaction);
+router.get('/edit-transaction/:TransferId'  , Authenticated , transferController.getEditTransaction);
+router.post('/edit-transaction/:TransferId' , transferController.postEditTransaction);
 
- router.get('/transaction' , Authenticated  ,  transferController.getTransactions);
+router.get('/transaction' , Authenticated  ,  transferController.getTransactions);
 
-// router.get('/transaction/:FriendId' , Authenticated  ,  transferController.getFriendTransactions);
+router.get('/profile' , Authenticated , userController.getProfile);
 
-// router.get('/transaction/delete/:TransferId' ,  transferController.deleteTransaction);
+router.get('/transaction/:FriendId' , Authenticated  ,  transferController.getFriendTransactions);
+
+router.get('/transaction/delete/:TransferId' , Authenticated ,  transferController.deleteTransaction);
 
 
 

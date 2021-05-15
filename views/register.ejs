@@ -6,7 +6,7 @@
     <h2 class="heading_msg">Register</h2>
   </div>
   <div class="form_div">
-    <form action="/user/register">
+    <form action="/user/register" method="POST">
       <div class="form_element">
         <label for="name">Name</label>
         <input
@@ -14,7 +14,7 @@
           required="true"
           autocomplete="off"
           id="name"
-          name="name"
+          name="username"
         />
       </div>
       <div class="form_element">
@@ -50,6 +50,16 @@
       <div class="submitbtn">
       <button class="button" type="submit">Submit</button>
     </div>
+    </form>
+    <form action="/user/login" method="GET">
+      <div class="submitbtn">
+        <button class="button" type="submit">Login</button>
+      </div>
+    </form>
+    <form action="/user/login/google" method="GET">
+      <div class="submitbtn">
+        <button class="button" type="submit"><i class="fab fa-google"></i>login</button>
+      </div>
     </form>
   </div>
 </main>

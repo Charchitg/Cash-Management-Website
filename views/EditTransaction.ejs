@@ -1,0 +1,69 @@
+<%- include('./includes/head.ejs') %>
+
+<main class="main">
+    <div class="heading">
+        <h2 class="heading_msg">Edit Transaction</h2>
+      </div>
+      <div class="form_div">
+    <% if (Transfers[0].friendname.length === 1) { %>
+      <form action="/user/edit-transaction/<%= Id %> " method="POST">
+        <div class="form_element">
+            <label for="friend">friend</label>
+            <input
+              type="email"
+              required="true"
+              autocomplete="off"
+              id="friend"
+              name="friend"
+              value="<%= Transfers[0].friendname %> "
+            />
+          </div>
+          <div class="form_element">
+            <label for="amount">Amount</label>
+            <input
+              type="text"
+              required="true"
+              autocomplete="off"
+              id="amount"
+              name="amount"
+              value="<%= Transfers[0].amount %> "
+            />
+          </div>
+          <div class="submitbtn">
+            <button class="button" type="submit">Submit</button>
+          </div>
+    </form>
+    <% } else { %>
+        <form action="/user/edit-transaction/<%= Id %> " method="POST">
+     <% for( let index = 0; index < Transfers[0].friendname.length; index++ ) { %>
+        <div class="form_element">
+            <label for="friend">friend</label>
+            <input
+              type="email"
+              required="true"
+              autocomplete="off"
+              id="friend"
+              name="friend"
+              value="<%= Transfers[0].friendname[index] %> "
+            />
+          </div>
+          <div class="form_element">
+            <label for="amount">Amount</label>
+            <input
+              type="text"
+              required="true"
+              autocomplete="off"
+              id="amount"
+              name="amount"
+              value="<%= Transfers[0].amount[index] %> "
+            />
+          </div>
+     <% } %>
+     <div class="submitbtn">
+        <button class="button" type="submit">Submit</button>
+      </div>
+        </form>
+<% } %>
+      </div>
+</main>
+<%- include('./includes/end.ejs') %>

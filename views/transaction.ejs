@@ -1,14 +1,20 @@
 <%- include('./includes/head.ejs') %>
 
 <main class="main">
+    <div class="heading">
+        <h2 class="heading_msg">Recent Transfers</h2>
+      </div>
+      <div class="transfers">
 <% Transfers.forEach(transfer => { %>
-<div class="transfer_div">
-    <h3><%= transfer.username %> </h3>
-    <h3><%= transfer.friendname %> </h3>
-    <h3><%= transfer.amount %> </h3>
-    <h3><%= transfer.Time %> </h3>
-    <button><a href="/<%= friendname %> ">view transaction</a></button>
+    <div class="transfer_element">
+    <h5><%= transfer.username %> </h5>
+    <h5><%= transfer.friendname %> </h5>
+    <h5><%= transfer.amount %> </h5>
+    <h5><%= transfer.Time.toLocaleTimeString() %>  <%= transfer.Time.toLocaleDateString() %> </h5>
+    <button class="edit"><i class="fas fa-edit"></i></button>
+    <button class="delete"><i class="fas fa-trash-alt"></i></button>
 </div>    
 <% }) %>
+      </div>
 </main>
 <%- include('./includes/end.ejs') %>

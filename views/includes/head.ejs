@@ -45,25 +45,33 @@
         <div class="collapse navbar-collapse" id="collapsibleNavId">
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0 nav_ul">
             <li class="nav-item">
-              <a class="nav-link" href="#">Home</a>
+              <a class="nav-link" href="/user/home">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Transfer Money</a>
+              <a class="nav-link" href="/user/transaction">Transactions</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">History</a>
-            </li>
+            <% if (path !== '/' && path !== '/user/register' && path !== '/user/login') { %>
+              <li class="nav-item">
+                <a class="nav-link" href="/user/profile">Profile</a>
+              </li>
+            <% } %>
+          
+            <% if (path === '/') { %>
             <li class="nav-item">
               <a class="nav-link" href="#">Login</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Register</a>
             </li>
+            <% } %>
           </ul>
         </div>
-        <form action="/user/logout" method="POST">
-          <button class="button">Logout</button>
-        </form>
+        <% if (path !== '/' && path !== '/user/register' && path !== '/user/login') { %>
+          <form action="/user/logout" method="POST">
+            <button class="button">Logout</button>
+          </form>
+        <% } %>
+        
       </nav>
     </header>
    

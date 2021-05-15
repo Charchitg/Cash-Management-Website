@@ -17,6 +17,11 @@ const initialise = require('./config/passport-config');
 
 initialise(passport);
 
+// google  oauth configs
+const googleoauth = require('./config/google-oauth');
+
+googleoauth(passport);
+
 // setting up view engine
 app.set('views','views');
 app.set('view engine' , 'ejs');
@@ -62,11 +67,12 @@ app.use('/user' , Userroutes);
 // Lander route
 app.get('/' , NotAuthenticated ,  (req,res,next) => {
    res.render('lander' , {
-      PageTitle : "Welcome"   
+      PageTitle : "Welcome" , 
+      path : '/'   
    }); 
 });
 
-const PORT = process.env.PORT || 5000 ;
+const PORT = process.env.PORT || 8080 ;
 
 app.listen(PORT, ()=> {
    console.log(`Connection worked at ${PORT}`);

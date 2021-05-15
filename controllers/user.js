@@ -27,7 +27,7 @@ exports.PostRegisterPage = (req,res,next) =>{
  
   if(!username || !email || !password || !confirm){
     errors.push("Please Enter all the fields");
-    console.log("Please Enter all the fields");
+   // console.log(username  , email , password , confirm);
   }
   User.findOne({email : email } , (err , user) =>{
     if(err){
@@ -35,19 +35,19 @@ exports.PostRegisterPage = (req,res,next) =>{
       throw err;
     }
     if(user){
-      console.log("User Already exists");
+     // console.log("User Already exists");
       errors.push("User Already exists");
     }
   });
 
   if(password.length < 8){
-    console.log("Password is too short , length should be more than 8");
+    //console.log("Password is too short , length should be more than 8");
     errors.push("Password is too short , length should be more than 8");
    
   }
 
   if(password !== confirm ){
-    console.log("Passwords do not match");
+    //console.log("Passwords do not match");
     errors.push("Passwords do not match");
   }
 
@@ -101,10 +101,18 @@ exports.getHome = (req , res , next) => {
 }
 
 exports.postHome = (req,res,next) => {
-  friend = req.body.friends;
-  username = req.body.username;
-  console.log(typeof(friend) , typeof(username));
-  console.log(friend , " " , username);
+  friend = parseInt(req.body.friends);
+  amount = parseInt(req.body.amount);
+  splitamount = amount/friend;
+  splitamount = splitamount.toPrecision(4);
   res.redirect('/user/transfer');
 }
 
+exports.getProfile = (req,res,next) => {
+  const user = req.user;
+  res.render('./profile' , {
+    PageTitle : "User Profile" , 
+    User : user , 
+    path : '/user/profile'
+  });
+}
