@@ -11,7 +11,12 @@ const TransferSchema = new mongoose.Schema({
     amount : {
         type : Array , 
         required : true
-    } , 
+    } ,
+    uid : {
+        type : String , 
+        required : true
+    }
+    ,  
     message : {
         type : String , 
         required : true
@@ -19,7 +24,7 @@ const TransferSchema = new mongoose.Schema({
     Time : {
         type : String ,
         default : new Date()
-    }
+    } 
 });
 
 const Transfer = mongoose.model('transaction' , TransferSchema);

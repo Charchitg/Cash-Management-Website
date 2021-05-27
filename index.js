@@ -22,9 +22,11 @@ const googleoauth = require('./config/google-oauth');
 
 googleoauth(passport);
 
+
 // setting up view engine
 app.set('views','views');
 app.set('view engine' , 'ejs');
+
 
 
 // app use setups
@@ -43,7 +45,7 @@ app.use(passport.session());
 // connecting to db
 mongoose.connect(
    process.env.MONGO_URI,
-   { useNewUrlParser: true, useUnifiedTopology: true },
+   { useNewUrlParser: true, useUnifiedTopology: true  , useFindAndModify : false},
    () => {console.log("Connected to DB");
 });
 
@@ -72,7 +74,7 @@ app.get('/' , NotAuthenticated ,  (req,res,next) => {
    }); 
 });
 
-const PORT = process.env.PORT || 8080 ;
+const PORT = process.env.PORT || 5000 ;
 
 app.listen(PORT, ()=> {
    console.log(`Connection worked at ${PORT}`);

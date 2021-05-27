@@ -1,6 +1,6 @@
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
-//const Transfer = require('../models/Transfer');
+
 
 exports.getLoginPage = (req,res,next) => {
   res.render('./login', {
@@ -21,7 +21,9 @@ exports.getRegisterPage = (req,res,next) =>{
 exports.PostRegisterPage = (req,res,next) =>{
   let errors = [];
   const username = req.body.username;
-  const email = req.body.email;
+  let Email = req.body.email;
+  const email = Email.toLowerCase();
+  console.log(email);
   const password = req.body.password;
   const confirm = req.body.confirm;
  

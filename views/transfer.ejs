@@ -1,19 +1,20 @@
 <%- include('./includes/head.ejs') %>
 
 <main class="main">
+  <%- include('./includes/errors.ejs') %> 
   <div class="heading">
     <h2 class="heading_msg">Transfer Details</h2>
   </div>
 
   <div class="form_div">
     <form action="/user/transfer" method="POST">
-      <% for( let index = 0; index < parseInt(friends); index++ ) { %>
+      <% for( let index = 0; index < parsefloat(friends); index++ ) { %>
       <div class="form_element">
         <label for="friend">friend</label>
         <input
           type="email"
           required="true"
-          autocomplete="off"
+          
           id="friend"
           name="friend"
         />

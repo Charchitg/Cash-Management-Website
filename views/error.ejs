@@ -1,13 +1,6 @@
 <%- include('./includes/head.ejs') %>
-<main>
-<div class="form">
-<h1><%= Error_Msg %> </h1>
-<% if (typeof(friendname) === "object" ) { %>
-    <% for( let i = 0; i < friendname.length; i++ ) { %>
-            <h2><%= friendname[i] %> </h2>
-    <% } %>
-<% } else { %>
-<h2><%= friendname %> is not a registered user </h2>
-<% } %>
-</div>
+<%- include('./includes/errors.ejs') %> 
+<main class="main">
+    <h5>Sorry! Network Error . Please try again . </h5>
+</main>
 <%- include('./includes/end.ejs') %>

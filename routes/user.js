@@ -30,7 +30,7 @@ router.get('/login/google' , (req,res,next) => {
 router.get('/google/redirect' , (req,res,next) =>{
 passport.authenticate('google' , {
   successRedirect : '/user/home' , 
-  failureRedirect : '/user/login'
+  failureRedirect : '/user/register'
 })(req,res,next);
 });
 

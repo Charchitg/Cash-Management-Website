@@ -230,6 +230,18 @@ footer{
     margin:1.5rem;
 }
 
+.pagination-div{
+    background-color: var(--rich-black-fogra-39);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#pagination{
+ background-color: transparent;
+ color: var(--maximum-blue); 
+}
+
 input {
     height: 2rem;
     font-family: var(--poppins);
