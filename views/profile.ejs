@@ -1,7 +1,28 @@
 <%- include('./includes/head.ejs') %>
 <main class="main">
-    <div class="heading">
-        <h2 class="heading_msg">User Profile</h2>
+  <div class="heading">
+    <h2 class="heading_msg">User Profile</h2>
+  </div>
+  <div class="profile">
+    <div class="personal_Info">
+        <div class="Info">
+          <h5 class="text">Name : <%= user.name %> </h5>
+          <h5 class="text">email : <%= user.email %> </h5>
+          <h5 class="text">username : <%= user.email %></h5>
+          <h5 class="text">Borrow Amount : Rs.<%= user.borrowMoney %> </h5>
+          <h5 class="text">Lend Amount : Rs.<%= user.lendMoney %> </h5>
+        </div>
       </div>
+      <div class="friends">
+        <% user.friends.forEach(friend => { %>
+          <div class="friend">
+            <h5><%= friend.name.toString() %> </h5>
+            <h5>Amount : Rs.<%= friend.amount.toString() %> </h5>
+            <a  href="/user/transaction/<%= friend.name.toString() %> ">See Transactions</a>
+          </div>      
+        <% }) %>
+      </div>
+  </div>
+
 </main>
 <%- include('./includes/end.ejs') %> 
