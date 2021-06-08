@@ -15,7 +15,7 @@ router.post('/login', (req,res,next) => {
     passport.authenticate('local' , {
       successRedirect : '/user/home' , 
       failureRedirect : '/user/login' , 
-      failureFlash : true
+      failureFlash : true 
   })(req,res,next);
 });
 
@@ -38,7 +38,7 @@ passport.authenticate('google' , {
 //  logout route
 router.post('/logout' , (req,res,next) =>{
   req.logOut();
-  //req.flash('success_msg'  "You have logged out successfully");
+  req.flash('success_msg' , "You have logged out successfully");
   res.redirect('/user/login');
 })
 
