@@ -22,8 +22,7 @@ const TransferSchema = new mongoose.Schema({
         required : true
     } , 
     Time : {
-        type : String ,
-        default : new Date()
+        type : String 
     } 
 });
 

@@ -20,16 +20,15 @@ exports.getRegisterPage = (req,res,next) =>{
 
 exports.PostRegisterPage = (req,res,next) =>{
   let errors = [];
-  const username = req.body.username;
+  const name = req.body.name;
   let Email = req.body.email;
   const email = Email.toLowerCase();
-  console.log(email);
   const password = req.body.password;
   const confirm = req.body.confirm;
  
-  if(!username || !email || !password || !confirm){
+  if(!name || !email || !password || !confirm){
     errors.push("Please Enter all the fields");
-   // console.log(username  , email , password , confirm);
+   
   }
   User.findOne({email : email } , (err , user) =>{
     if(err){
@@ -37,19 +36,19 @@ exports.PostRegisterPage = (req,res,next) =>{
       throw err;
     }
     if(user){
-     // console.log("User Already exists");
+     
       errors.push("User Already exists");
     }
   });
 
   if(password.length < 8){
-    //console.log("Password is too short , length should be more than 8");
+   
     errors.push("Password is too short , length should be more than 8");
    
   }
 
   if(password !== confirm ){
-    //console.log("Passwords do not match");
+    
     errors.push("Passwords do not match");
   }
 
@@ -59,7 +58,7 @@ exports.PostRegisterPage = (req,res,next) =>{
     res.render('./register' , {
       PageTitle : "Register" ,
       errors : errors , 
-      username , 
+      name , 
       email , 
       password ,
       confirm
@@ -81,7 +80,7 @@ else{
         throw err;
       }
 
-      const user = new User( {username , email , password : hash });
+      const user = new User( {name , email , password : hash });
       user.save()
       .then(res.redirect('/user/login'))
       .catch((err) =>{
@@ -110,11 +109,23 @@ exports.postHome = (req,res,next) => {
   res.redirect('/user/transfer');
 }
 
-exports.getProfile = (req,res,next) => {
-  const user = req.user;
+exports.getProfile = async (req,res,next) => {
+  const userid = req.user.email;
+  const user = await User.findOne({ email : userid })
+  .then(console.log("user info found"))
+  .catch((err) => {
+    console.log(err);
+    res.status(400).render('./error' , {
+      PageTitle : "Error" , 
+      error_msg : "User info not found" , 
+      path : '/error'
+    })
+  });
+ 
+  console.log('user ', user);
   res.render('./profile' , {
     PageTitle : "User Profile" , 
-    User : user , 
+    user : user , 
     path : '/user/profile'
   });
 }
