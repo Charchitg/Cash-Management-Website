@@ -23,13 +23,13 @@ module.exports = (passport) => {
              
              if(res === false){
                 
-             return done(null ,false , {message : 'Password is incorrect'});
+             return done(null ,false);
              }
             
              if(res === true){
                  // user is found
                
-                return done(null , user , {message : 'Login successful'});
+                return done(null , user);
              } 
         })
     })

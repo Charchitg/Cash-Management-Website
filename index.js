@@ -3,6 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const BodyParser = require('body-parser');
+
 const app = express();
 
 // mongoose setup
@@ -55,11 +56,11 @@ mongoose.connect(
 app.use((req,res,next) =>{
    res.locals.success_msg = req.flash('success_msg');
    res.locals.error_msg = req.flash('error_msg');
-   res.locals.error = req.flash('error');
+   res.locals.errors = req.flash('error');
    next();
 });
 
-
+// User Routes
 const Userroutes = require('./routes/user');
 const { NotAuthenticated } = require('./config/auth');
 
