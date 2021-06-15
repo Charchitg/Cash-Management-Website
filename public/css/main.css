@@ -17,7 +17,7 @@
 --rich-black-fogra-29: #011627ff;
 --baby-powder: #fdfffcff;
 --tiffany-blue: #2ec4b6ff;
---rose-madder: #e71d36ff;
+--rose-madder: #bf0603;
 --orange-peel: #ff9f1cff;
 
 /*  font vars   */
@@ -151,23 +151,33 @@ main{
 }
 
 .button:hover {
-    background-color: var(--rose-madder);
+    background-color: var(--maximum-blue);
     color: var(--rich-black-fogra-39);
+    transition: ease-out 0.3s;
 }
 
 .transfers{
     display: flex;
+    align-items:center;
+    min-width: 90vw;
     flex-direction: column;
 }
 
-.transfer_element{
+.transfer_div{
     display: flex;
-    background-color:var(--rich-black-fogra-29);
+    padding: 0.5rem;
+    background-color: var(--rich-black-fogra-29);
     border-radius: 1rem;
-    box-shadow: var(--baby-powder);
-    margin: 1rem;
-    align-items: center;
-    padding: 1rem;
+    margin: 0.5rem;
+    justify-content: space-evenly;
+    width: 100%;
+    flex-direction: row;
+}
+
+.username , .friendname , .amount , .description {
+    display: flex;
+    flex-direction: column;
+    max-width: 18vw;
 }
 
 .edit , .delete{
@@ -179,7 +189,7 @@ main{
 
 h5{
     color: var(--orange-peel);
-    font-size: 1rem;
+    font-size: 1.2rem;
     padding: 1rem;
 }
 
@@ -230,18 +240,6 @@ footer{
     margin:1.5rem;
 }
 
-.pagination-div{
-    background-color: var(--rich-black-fogra-39);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#pagination{
- background-color: transparent;
- color: var(--maximum-blue); 
-}
-
 input {
     height: 2rem;
     font-family: var(--poppins);
@@ -271,6 +269,35 @@ label{
 }
 
 
+.friends{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.friend{
+    min-width: 70vw;
+    padding : 0.5rem;
+    margin-top: 1rem;
+    border-radius: 0.5rem;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: row;
+    background-color: var(--rich-black-fogra-29);
+    color: var(--baby-powder);
+}
+
+.personal_Info{
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+}
+
+.text{
+    padding: 0.2rem;
+}
 
 button i{
     padding: 0.3rem;
