@@ -4,12 +4,14 @@ const router = express.Router();
 const { Authenticated , NotAuthenticated }  = require('../config/auth');
 
 
-const userController = require('../controllers/user');
-const transferController = require('../controllers/transfer');
-
+const userControllers = require('../controllers/user');
+const GetControllers = require('../controllers/GetTransaction');
+const EditControllers = require('../controllers/EditTransaction');
+const CreateControllers  = require('../controllers/CreateTransaction');
+const DeleteControllers = require('../controllers/DeleteTransaction');
 
 // login routes
-router.get('/login' , NotAuthenticated , userController.getLoginPage);
+router.get('/login' , NotAuthenticated , userControllers.getLoginPage);
 
 router.post('/login', (req,res,next) => {
     passport.authenticate('local' , {
@@ -44,26 +46,26 @@ router.post('/logout' , (req,res,next) =>{
 
 // Register User Route
 
-router.get('/register' , NotAuthenticated , userController.getRegisterPage);
-router.post('/register' , userController.PostRegisterPage);
+router.get('/register' , NotAuthenticated , userControllers.getRegisterPage);
+router.post('/register' , userControllers.PostRegisterPage);
 
 
-router.get('/home'  , Authenticated ,  userController.getHome);
-router.post('/home' , userController.postHome);
+router.get('/home'  , Authenticated ,  userControllers.getHome);
+router.post('/home' , userControllers.postHome);
 
-router.get('/transfer'  , Authenticated , transferController.getTransferPage);
-router.post('/transfer' , transferController.postTransferPage);
+router.get('/transfer'  , Authenticated , GetControllers.getTransferPage);
+router.post('/transfer' , CreateControllers.postTransferPage);
 
-router.get('/edit-transaction/:TransferId'  , Authenticated , transferController.getEditTransaction);
-router.post('/edit-transaction/:TransferId' , transferController.postEditTransaction);
+router.get('/edit-transaction/:TransferId'  , Authenticated , GetControllers.getEditTransaction);
+router.post('/edit-transaction/:TransferId' , EditControllers.postEditTransaction);
 
-router.get('/transaction' , Authenticated  ,  transferController.getTransactions);
+router.get('/transaction' , Authenticated  ,  GetControllers.getTransactions);
 
-router.get('/profile' , Authenticated , userController.getProfile);
+router.get('/profile' , Authenticated , userControllers.getProfile);
 
-router.get('/transaction/:FriendId' , Authenticated  ,  transferController.getFriendTransactions);
+router.get('/transaction/:FriendId' , Authenticated  ,  GetControllers.getFriendTransactions);
 
-router.get('/transaction/delete/:TransferId' , Authenticated ,  transferController.deleteTransaction);
+router.get('/transaction/delete/:TransferId' , Authenticated ,  DeleteControllers.deleteTransaction);
 
 
 

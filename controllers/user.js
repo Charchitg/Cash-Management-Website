@@ -58,6 +58,7 @@ exports.PostRegisterPage = (req,res,next) =>{
     res.render('./register' , {
       PageTitle : "Register" ,
       errors : errors , 
+      path : '/user/register' , 
       name , 
       email , 
       password ,
