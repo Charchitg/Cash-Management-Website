@@ -74,7 +74,13 @@ exports.postTransferPage = async (req,res,next) =>{
                 for(let i=0;i<req.user.friends.length;i++){
                   if(req.user.friends[i].name.toString() === friend.email.toString()){
                     Exists = true;
-                    req.user.friends[i].amount += amount;
+                    let add = { 
+                      name : req.user.friends[i].name , 
+                      amount : req.user.friends[i].amount+amount 
+                    };
+                
+                    req.user.friends.splice(i,1,add)
+                    //req.user.friends[i].amount += amount;
                     console.log(req.user.friends);
                   }
                 }
@@ -175,8 +181,13 @@ exports.postTransferPage = async (req,res,next) =>{
             for(let j=0;j<req.user.friends.length;j++){
               if(req.user.friends[j].name.toString() === friendname[i]){
                 Exist = true;
-                req.user.friends[j].amount += parseFloat(amountArr[i]);
-                
+                let add = {
+                  name : req.user.friends[j].name , 
+                  amount : parseFloat(req.user.friends[j].amount + parseFloat(amountArr[i]) )
+                }
+                //req.user.friends[j].amount += parseFloat(amountArr[i]);
+                req.user.friends.splice(j,1,add);
+                console.log( " Is update correct ? " , req.user.friends);
               }
             }
             if(!Exist){

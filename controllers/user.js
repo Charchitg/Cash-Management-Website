@@ -106,7 +106,7 @@ exports.postHome = (req,res,next) => {
   friend = parseInt(req.body.friends);
   amount = parseInt(req.body.amount);
   splitamount = amount/friend;
-  splitamount = splitamount.toPrecision(4);
+  splitamount = splitamount.toPrecision(2);
   res.redirect('/user/transfer');
 }
 

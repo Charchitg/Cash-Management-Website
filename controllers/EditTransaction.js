@@ -47,7 +47,7 @@ exports.postEditTransaction = async (req,res,next) =>{
       const PreviousFriendname = existing.friendname;
       const PreviousAmount = existing.amount;
       //const PreviousMessage = existing.message;
-      console.log(typeof(PreviousAmount) , PreviousAmount.length);
+      //console.log(typeof(PreviousAmount) , PreviousAmount.length);
       if(PreviousAmount.length === 1){
           const getFriend = await User.findOne({ email : PreviousFriendname[0] });
           if(!getFriend){
@@ -55,27 +55,45 @@ exports.postEditTransaction = async (req,res,next) =>{
             res.redirect('/user/transaction');
           }  
           Amount -= parseFloat(PreviousAmount);
-          console.log(" Amount1 " , Amount);
+          //console.log(" Amount1 " , Amount);
           Amount += parseFloat(amount);
-          console.log(" Amount2 " , Amount);
+          //console.log(" Amount2 " , Amount);
           getFriend.borrowMoney -= parseFloat(PreviousAmount);
-          console.log("Bm1 " , getFriend.borrowMoney);
+          //console.log("Bm1 " , getFriend.borrowMoney);
           getFriend.borrowMoney += parseFloat(amount);
-          console.log("Bm2 " , getFriend.borrowMoney);
+          //console.log("Bm2 " , getFriend.borrowMoney);
           const saveFriend = await getFriend.save();
-          console.log("Saved Friend " , saveFriend);
+          //console.log("Saved Friend " , saveFriend);
         
-        console.log("ld1 " , req.user.lendMoney);
+       // console.log("ld1 " , req.user.lendMoney);
         req.user.lendMoney += parseFloat(Amount);
-        console.log("ld2 " , req.user.lendMoney);
-          const j = await req.user.friends.findIndex(email => email.name.toString() === PreviousFriendname[0].toString());
-          if(j=== -1){
-            console.log("Not found");
-          }
-          else{
-            req.user.friends[j].amount -= parseFloat(PreviousAmount);
-            req.user.friends[j].amount += parseFloat(amount);          
-          }
+       //. console.log("ld2 " , req.user.lendMoney);
+
+       for(let j=0;j<req.user.friends.length;j++){
+        if(PreviousFriendname[0].toString() === req.user.friends[j].name.toString()){
+      
+          let add = {
+          name : req.user.friends[j].name , 
+          amount : parseFloat(req.user.friends[j].amount - parseFloat(PreviousAmount) + parseFloat(amount) )
+        }
+          //req.user.friends[j].amount += parseFloat(amountArr[i]);
+          req.user.friends.splice(j,1,add);
+          console.log( " Is edit update correct ? " , req.user.friends);
+        //req.user.friends[j].amount -= parseFloat(existing.amount[i]);
+        //console.log("friend arr update");
+        break;
+      }      
+     }
+
+
+          // const j = await req.user.friends.findIndex(email => email.name.toString() === PreviousFriendname[0].toString());
+          // if(j === -1){
+          //   console.log("Not found");
+          // }
+          // else{
+          //   // req.user.friends[j].amount -= parseFloat(PreviousAmount);
+          //   // req.user.friends[j].amount += parseFloat(amount);          
+          // }
    
         }
       else{
@@ -86,29 +104,51 @@ exports.postEditTransaction = async (req,res,next) =>{
           res.redirect('/user/transaction');
         }  
         Amount -= parseFloat(PreviousAmount[i]);
-        console.log(" Amount1 " , Amount);
+        //console.log(" Amount1 " , Amount);
         Amount += parseFloat(amount[i]);
-        console.log(" Amount2 " , Amount);
+        //console.log(" Amount2 " , Amount);
         getFriend.borrowMoney -= parseFloat(PreviousAmount[i]);
-        console.log("Bm1 " , getFriend.borrowMoney);
+        //console.log("Bm1 " , getFriend.borrowMoney);
         getFriend.borrowMoney += parseFloat(amount[i]);
-        console.log("Bm2 " , getFriend.borrowMoney);
+        //console.log("Bm2 " , getFriend.borrowMoney);
         const saveFriend = await getFriend.save();
-        console.log("Saved Friend " , saveFriend);
+        //console.log("Saved Friend " , saveFriend);
       }
-      console.log("ld1 " , req.user.lendMoney);
+      //console.log("ld1 " , req.user.lendMoney);
       req.user.lendMoney += parseFloat(Amount);
-      console.log("ld2 " , req.user.lendMoney);
+      //console.log("ld2 " , req.user.lendMoney);
       for(let i=0;i<PreviousFriendname.length ; i++){
-        const j = await req.user.friends.findIndex(email => email.name.toString() === PreviousFriendname[i].toString());
-        if(j=== -1){
-          console.log("Not found");
-        }
-        else{
-          req.user.friends[j].amount -= parseFloat(PreviousAmount[i]);
-          req.user.friends[j].amount += parseFloat(amount[i]);
+        for(let j=0;j<req.user.friends.length;j++){
+          if(PreviousFriendname[i].toString() === req.user.friends[j].name.toString()){
+        
+            let add = {
+            name : req.user.friends[j].name , 
+            amount : parseFloat(req.user.friends[j].amount - parseFloat(PreviousAmount[i]) + parseFloat(amount[i]) )
+          }
+            //req.user.friends[j].amount += parseFloat(amountArr[i]);
+            req.user.friends.splice(j,1,add);
+            console.log( " Is edit update correct ? " , req.user.friends);
+          //req.user.friends[j].amount -= parseFloat(existing.amount[i]);
+          //console.log("friend arr update");
+          break;
+        }      
+       }
+        // const j = await req.user.friends.findIndex(email => email.name.toString() === PreviousFriendname[i].toString());
+        // if(j=== -1){
+        //   console.log("Not found");
+        // }
+        // else{
+        //   let add = {
+        //     name : req.user.friends[j].name , 
+        //     amount : parseFloat(req.user.friends[j].amount - parseFloat(PreviousAmount[i]) + parseFloat(amount[i]) )
+        //   }
+        //   //req.user.friends[j].amount += parseFloat(amountArr[i]);
+        //   req.user.friends.splice(j,1,add);
+        //   console.log( " Is edit update correct ? " , req.user.friends);
+        //   // req.user.friends[j].amount -= parseFloat(PreviousAmount[i]);
+        //   // req.user.friends[j].amount += parseFloat(amount[i]);
           
-        }
+        // }
       }
     } 
       const savedUser = await req.user.save();

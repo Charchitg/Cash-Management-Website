@@ -34,11 +34,18 @@ exports.deleteTransaction = async (req , res , next ) => {
         console.log("User not found");
         res.redirect('/user/transaction');
         }
-        for(let j=0;j<user.friends.length;j++){
+        for(let j=0;j<req.user.friends.length;j++){
           if(friend.email.toString() === req.user.friends[j].name.toString()){
         
-          req.user.friends[j].amount -= parseFloat(existing.amount[i]);
-          console.log("friend arr update");
+            let add = {
+              name : req.user.friends[j].name , 
+              amount : parseFloat(req.user.friends[j].amount - parseFloat(existing.amount[i]) )
+            }
+            //req.user.friends[j].amount += parseFloat(amountArr[i]);
+            req.user.friends.splice(j,1,add);
+            console.log( " Is delete update correct ? " , req.user.friends);
+          //req.user.friends[j].amount -= parseFloat(existing.amount[i]);
+          //console.log("friend arr update");
           break;
         }      
        }
