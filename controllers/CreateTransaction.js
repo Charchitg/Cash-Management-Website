@@ -187,7 +187,7 @@ exports.postTransferPage = async (req,res,next) =>{
                 }
                 //req.user.friends[j].amount += parseFloat(amountArr[i]);
                 req.user.friends.splice(j,1,add);
-                console.log( " Is update correct ? " , req.user.friends);
+               // console.log( " Is update correct ? " , req.user.friends);
               }
             }
             if(!Exist){

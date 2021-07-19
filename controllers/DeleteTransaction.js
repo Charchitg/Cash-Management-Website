@@ -43,12 +43,12 @@ exports.deleteTransaction = async (req , res , next ) => {
             }
             //req.user.friends[j].amount += parseFloat(amountArr[i]);
             req.user.friends.splice(j,1,add);
-            console.log( " Is delete update correct ? " , req.user.friends);
+            //console.log( " Is delete update correct ? " , req.user.friends);
           //req.user.friends[j].amount -= parseFloat(existing.amount[i]);
           //console.log("friend arr update");
           break;
         }      
-       }
+      }
         friend.borrowMoney -= parseFloat(existing.amount[i]);
         Amount += parseFloat(existing.amount[i]);
        const Saved = await friend.save();

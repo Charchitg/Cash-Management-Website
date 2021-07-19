@@ -38,16 +38,19 @@ exports.postEditTransaction = async (req,res,next) =>{
       if(!existing){
         req.flash('error_msg' , "Transaction not found");
       }  
+      console.log(existing);
+      console.log(existing.username);
+      console.log(req.user.email);
       if(existing.username.toString() !== req.user.email.toString()){
-        req.flash('' , "You cannot edit this transaction");
-        res.redirect('/user/edit-transaction');
+        console.log("works");
+        req.flash('error_msg' , "You cannot edit this transaction");
+        res.redirect('/user/transaction');
       }
-      
+      else {
       let Amount = 0;
       const PreviousFriendname = existing.friendname;
       const PreviousAmount = existing.amount;
-      //const PreviousMessage = existing.message;
-      //console.log(typeof(PreviousAmount) , PreviousAmount.length);
+      
       if(PreviousAmount.length === 1){
           const getFriend = await User.findOne({ email : PreviousFriendname[0] });
           if(!getFriend){
@@ -78,7 +81,7 @@ exports.postEditTransaction = async (req,res,next) =>{
         }
           //req.user.friends[j].amount += parseFloat(amountArr[i]);
           req.user.friends.splice(j,1,add);
-          console.log( " Is edit update correct ? " , req.user.friends);
+          // console.log( " Is edit update correct ? " , req.user.friends);
         //req.user.friends[j].amount -= parseFloat(existing.amount[i]);
         //console.log("friend arr update");
         break;
@@ -127,7 +130,7 @@ exports.postEditTransaction = async (req,res,next) =>{
           }
             //req.user.friends[j].amount += parseFloat(amountArr[i]);
             req.user.friends.splice(j,1,add);
-            console.log( " Is edit update correct ? " , req.user.friends);
+            // console.log( " Is edit update correct ? " , req.user.friends);
           //req.user.friends[j].amount -= parseFloat(existing.amount[i]);
           //console.log("friend arr update");
           break;
@@ -152,10 +155,12 @@ exports.postEditTransaction = async (req,res,next) =>{
       }
     } 
       const savedUser = await req.user.save();
-      console.log("Saved User " , savedUser);
-      const updated = await Transfer.updateOne({username : req.user.email , friendname : friendname , amount : amount , message : message , Time : Time})
-      console.log("updated " , updated);
+      // console.log("Saved User " , savedUser);
+      const updated = await Transfer.findOneAndUpdate( { uid : uid} , {username : req.user.email , friendname : friendname , amount : amount , message : message , Time : Time});
+      
+      //console.log("updated " , updated);
         res.redirect('/user/transaction');
+  }
     } catch (err) {
       console.log(err);
     }

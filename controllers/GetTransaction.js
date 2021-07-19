@@ -45,8 +45,6 @@ exports.getTransactions = async (req,res,next) => {
     {friendname : req.user.email }
   ] })
   .sort({ Time : -1 })
-  .skip((pageNumber-1)*Pagesize)
-  .limit(Pagesize)
   .then( ( Transactions ) => {
     //console.log(Transactions);
       res.render('./transaction' , {
@@ -101,8 +99,6 @@ exports.getFriendTransactions = async (req , res , next ) => {
     { $and : [ { username : friendId } , {friendname : req.user.email } ] }
  ]})
   .sort({Time : -1 })
-  .skip((pageNumber-1) * Pagesize)
-  .limit(5)
   .then((transfers) =>{
     //console.log(transfers);
     res.render('./transaction' , {
