@@ -15,7 +15,7 @@ exports.postTransferPage = async (req,res,next) =>{
     let year = now.getFullYear();
     let hour = now.getHours();
     let min = now.getMinutes();
-    let AmPm;
+    let AmPm="";
     if(hour >= 12){
       AmPm = "PM";
       if(hour > 12){

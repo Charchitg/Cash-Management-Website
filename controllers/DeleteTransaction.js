@@ -25,7 +25,7 @@ exports.deleteTransaction = async (req , res , next ) => {
         req.flash('error_msg' , "You cannot delete this Transaction");
       }
       else{
-        console.log('valid deletion');
+        //console.log('valid deletion');
       }
       let Amount = 0;
       for(let i=0;i<existing.friendname.length;i++){

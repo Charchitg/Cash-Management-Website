@@ -1,6 +1,5 @@
 const User = require('../models/User');
 const Transfer = require('../models/Transfer');
-const uuid = require('uuid');
 
 
 exports.getTransferPage = (req,res,next) =>{
