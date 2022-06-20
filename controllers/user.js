@@ -52,18 +52,21 @@ exports.PostRegisterPage = (req,res,next) =>{
     errors.push("Passwords do not match");
   }
 
-  console.log(errors);
+  //console.log(errors);
   if(errors.length){
+    req.flash('error_msg' , errors[0]);
+    req.flash('error_msg', errors[1]);
     console.log(errors);
-    res.render('./register' , {
-      PageTitle : "Register" ,
-      errors : errors , 
-      path : '/user/register' , 
-      name , 
-      email , 
-      password ,
-      confirm
-    });
+    res.redirect('/user/register');
+    // res.render('./register' , {
+    //   PageTitle : "Register" ,
+    //   errors : errors , 
+    //   path : '/user/register' , 
+    //   name , 
+    //   email , 
+    //   password ,
+    //   confirm
+    // });
   }
 
 else{

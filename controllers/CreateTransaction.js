@@ -9,28 +9,28 @@ exports.postTransferPage = async (req,res,next) =>{
     const friendArr = req.body.friend;
     const amountArr = req.body.amount;
     const message = req.body.description;
-    const now = new Date;
-    let dateNum = now.getDate();
-    let month = now.getMonth() + 1;
-    let year = now.getFullYear();
-    let hour = now.getHours();
-    let min = now.getMinutes();
-    let AmPm="";
-    if(hour >= 12){
-      AmPm = "PM";
-      if(hour > 12){
-        hour -= 12;
-      }
-    }
-    if(hour < 12){
-      AmPm = "AM";
-      if(hour === 0){
-        hour = 12;
-      }
-    }
+    // const now = new Date;
+    // let dateNum = now.getDate();
+    // let month = now.getMonth() + 1;
+    // let year = now.getFullYear();
+    // let hour = now.getHours();
+    // let min = now.getMinutes();
+    // let AmPm="";
+    // if(hour >= 12){
+    //   AmPm = "PM";
+    //   if(hour > 12){
+    //     hour -= 12;
+    //   }
+    // }
+    // if(hour < 12){
+    //   AmPm = "AM";
+    //   if(hour === 0){
+    //     hour = 12;
+    //   }
+    // }
     
-    const Time = hour.toString() + ":" + min.toString() + " " + AmPm.toString() + " " + dateNum.toString() + "/" + month.toString() + "/" + year.toString();
-    console.log(Time);
+    // const Time = hour.toString() + ":" + min.toString() + " " + AmPm.toString() + " " + dateNum.toString() + "/" + month.toString() + "/" + year.toString();
+    // console.log(Time);
 
   if( typeof(friendArr) === "string" ){
 // ONLY ONE FRIEND LOGIC  
@@ -66,7 +66,7 @@ exports.postTransferPage = async (req,res,next) =>{
           .then(console.log(`${friend.email} db updated`))
           .catch((err) => console.log(err));
           const uid = uuid.v4();
-          const NewTransfer = new Transfer({username , friendname , amount  , uid , message , Time});
+          const NewTransfer = new Transfer({username , friendname , amount  , uid , message});
           NewTransfer.save()
           .then(() =>{ 
               console.log('New Transfer Added');
@@ -162,7 +162,7 @@ exports.postTransferPage = async (req,res,next) =>{
         amount.push(...amountArr);
         
         const uid = uuid.v4();
-        const NewTransfer = new Transfer({username , friendname  , amount  , uid , message , Time });
+        const NewTransfer = new Transfer({username , friendname  , amount  , uid , message  });
         NewTransfer.save()
         .then(() => {
           console.log("New Transaction saved");

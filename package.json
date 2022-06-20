@@ -4,7 +4,8 @@
   "description": "this is my smp-2021 project",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "node index.js" , 
+    "dev" : "nodemon index.js"
   },
   "author": "Charchit Gupta",
   "license": "ISC",

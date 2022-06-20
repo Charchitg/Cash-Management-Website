@@ -20,10 +20,9 @@ const TransferSchema = new mongoose.Schema({
     message : {
         type : String , 
         required : true
-    } , 
-    Time : {
-        type : String 
     } 
+} , {
+    timestamps : true
 });
 
 const Transfer = mongoose.model('transaction' , TransferSchema);

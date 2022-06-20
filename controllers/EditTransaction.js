@@ -10,27 +10,27 @@ exports.postEditTransaction = async (req,res,next) =>{
       const friendname = req.body.friend;
       const amount = req.body.amount;
       const message = req.body.description;
-      const now = new Date;
-        let dateNum = now.getDate();
-        let month = now.getMonth() + 1;
-        let year = now.getFullYear();
-        let hour = now.getHours();
-        let min = now.getMinutes();
-        let AmPm="";
-        if(hour >= 12){
-          AmPm = "PM";
-          if(hour > 12){
-            hour -= 12;  
-          }
-        }
-        if(hour < 12){
-          AmPm = "AM";
-          if(hour === 0){
-            hour = 12;
-          }
-        }
+      // const now = new Date;
+      //   let dateNum = now.getDate();
+      //   let month = now.getMonth() + 1;
+      //   let year = now.getFullYear();
+      //   let hour = now.getHours();
+      //   let min = now.getMinutes();
+      //   let AmPm="";
+      //   if(hour >= 12){
+      //     AmPm = "PM";
+      //     if(hour > 12){
+      //       hour -= 12;  
+      //     }
+      //   }
+      //   if(hour < 12){
+      //     AmPm = "AM";
+      //     if(hour === 0){
+      //       hour = 12;
+      //     }
+      //   }
         
-        const Time = hour.toString() + ":" + min.toString() + " " + AmPm.toString() + " " + dateNum.toString() + "/" + month.toString() + "/" + year.toString();
+      //   const Time = hour.toString() + ":" + min.toString() + " " + AmPm.toString() + " " + dateNum.toString() + "/" + month.toString() + "/" + year.toString();
         
       let uid = req.params.TransferId;
       
@@ -156,7 +156,7 @@ exports.postEditTransaction = async (req,res,next) =>{
     } 
       const savedUser = await req.user.save();
       // console.log("Saved User " , savedUser);
-      const updated = await Transfer.findOneAndUpdate( { uid : uid} , {username : req.user.email , friendname : friendname , amount : amount , message : message , Time : Time});
+      const updated = await Transfer.findOneAndUpdate( { uid : uid} , {username : req.user.email , friendname : friendname , amount : amount , message : message});
       
       //console.log("updated " , updated);
         res.redirect('/user/transaction');

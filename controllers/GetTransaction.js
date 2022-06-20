@@ -45,7 +45,7 @@ exports.getTransactions = async (req,res,next) => {
   ] })
   .sort({ Time : -1 })
   .then( ( Transactions ) => {
-    //console.log(Transactions);
+    console.log(Transactions);
       res.render('./transaction' , {
         PageTitle : "Transactions" , 
         Transfers : Transactions , 

@@ -11,13 +11,13 @@
         <div class="username">
     <h5 class="text">Username :</h5>
     <h5 class="text"><%= transfer.username %> </h5>
-</div>
-<div class="friendname">
-    <h5 class="text">Friends :</h5>
-    <% transfer.friendname.forEach(friend => { %>
-     <h5 class="text"><%= friend %> </h5>
-    <% }) %>
-</div>
+    </div>
+    <div class="friendname">
+        <h5 class="text">Friends :</h5>
+            <% transfer.friendname.forEach(friend => { %>
+            <h5 class="text"><%= friend %> </h5>
+            <% }) %>
+    </div>
 <div class="amount">
     <h5 class="text">Amount :</h5>
     <% transfer.amount.forEach(amount => { %>
@@ -30,7 +30,7 @@
 </div>
 <div class="time">
     <h5 class="text">Time : </h5>
-    <h5 class="text"><%= transfer.Time %> </h5>
+    <h5 class="text"><%= transfer.updatedAt %> </h5>
     
 </div>
     <div class="actions">
